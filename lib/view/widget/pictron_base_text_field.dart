@@ -5,7 +5,7 @@ class PictronBaseTextField extends TextField {
   PictronBaseTextField({
     Key key,
     String placeholder,
-    bool obscureText,
+    bool obscureText = false,
   }) : super(
     controller: new TextEditingController(),
     decoration:

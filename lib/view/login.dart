@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pictron/logic/validation/string_validator.dart';
+import 'package:pictron/view/widget/pictron_password_text_field.dart';
+import 'package:pictron/view/widget/pictron_text_field.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key, this.title}) : super(key: key);
@@ -11,15 +13,21 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final StringValidator _stringValidator = new StringValidator();
-  final TextEditingController _emailController = new TextEditingController();
-  final TextEditingController _passController = new TextEditingController();
+  StringValidator _stringValidator;
+  PictronTextField _emailTextField;
+  PictronPasswordTextField _passwordTextField;
+  String _errorMessage;
 
-  String _errorMessage = "";
+  _LoginPageState() {
+    _errorMessage = '';
+    _emailTextField = PictronTextField(placeholder: 'Email');
+    _passwordTextField = PictronPasswordTextField(placeholder: 'Password');
+    _stringValidator = new StringValidator();
+  }
 
   void _checkEmail() {
     setState(() {
-      if (!_stringValidator.isEmail(_emailController.text.trim())) {
+      if (!_stringValidator.isEmail(_emailTextField.controller.text.trim())) {
         _errorMessage = "You must provide a valid email.\n";
       } else {
         _errorMessage = "";
@@ -29,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
 
   void _checkPass() {
     setState(() {
-      if (_passController.text.isEmpty) {
+      if (_passwordTextField.controller.text.isEmpty) {
         _errorMessage += "You must provide a password.\n";
       }
     });
@@ -42,12 +50,8 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            TextField(controller: _emailController, decoration: InputDecoration(
-              hintText: "Email"
-            ),),
-            TextField(obscureText: true, controller: _passController, decoration: InputDecoration(
-              hintText: "Password"
-            ),),
+            _emailTextField,
+            _passwordTextField,
             Text(
               _errorMessage,
               style: TextStyle(color: Colors.red),
