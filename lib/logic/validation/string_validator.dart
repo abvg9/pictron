@@ -4,11 +4,9 @@ const String format =
     r'[a-zA-Z]{2,}))$';
 
 class StringValidator {
-
   static RegExp _emailRegExp = new RegExp(format);
 
   bool isEmail(String email) {
     return _emailRegExp.hasMatch(email);
   }
-
 }

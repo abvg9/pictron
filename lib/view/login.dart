@@ -11,7 +11,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   final StringValidator _stringValidator = new StringValidator();
   final TextEditingController _emailController = new TextEditingController();
   final TextEditingController _passController = new TextEditingController();
@@ -19,27 +18,20 @@ class _LoginPageState extends State<LoginPage> {
   String _errorMessage = "";
 
   void _checkEmail() {
-
     setState(() {
-
-      if(!_stringValidator.isEmail(_emailController.text.trim())) {
+      if (!_stringValidator.isEmail(_emailController.text.trim())) {
         _errorMessage = "You must provide a valid email.\n";
       } else {
         _errorMessage = "";
       }
-
     });
-
   }
 
   void _checkPass() {
-
     setState(() {
-
-      if(_passController.text.isEmpty) {
+      if (_passController.text.isEmpty) {
         _errorMessage += "You must provide a password.\n";
       }
-
     });
   }
 
@@ -77,39 +69,24 @@ class _LoginPageState extends State<LoginPage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Text('Email'),
+            TextField(controller: _emailController),
+            Text('Password'),
+            TextField(obscureText: true, controller: _passController),
             Text(
-                'Email'
-            ),
-            TextField(
-                controller: _emailController
-            ),
-            Text(
-                'Password'
-            ),
-            TextField(
-                obscureText: true,
-                controller: _passController
-            ),
-            Text(_errorMessage,
-              style: TextStyle(
-                color: Colors.red
-              ),
+              _errorMessage,
+              style: TextStyle(color: Colors.red),
             ),
             ButtonBar(
               alignment: MainAxisAlignment.center,
               children: <Widget>[
                 RaisedButton(
-                    onPressed: ()  {
+                    onPressed: () {
                       _checkEmail();
                       _checkPass();
                     },
-                    child: Text(
-                      "Log in",
-                      style: TextStyle(
-                        color: Colors.green
-                      )
-                    )
-                )
+                    child:
+                        Text("Log in", style: TextStyle(color: Colors.green)))
               ],
             )
           ],
@@ -124,5 +101,4 @@ class _LoginPageState extends State<LoginPage> {
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
-
 }
