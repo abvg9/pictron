@@ -12,5 +12,4 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           flutter-version: '1.9.1+hotfix.6'
-      - run: echo ./{lib,test}/*.dart
       - run: flutter format -n --set-exit-if-changed ./{lib,test}/*.dart
