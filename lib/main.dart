@@ -21,7 +21,7 @@ class Pictron extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.yellow,
       ),
-      home: LoginPage(title: 'Login'),
+      home: LoginPage(title: 'Pictron'),
     );
   }
 }
