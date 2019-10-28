@@ -4,9 +4,9 @@ import 'package:pictron/view/widget/pictron_password_text_field.dart';
 import 'package:pictron/view/widget/pictron_text_field.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({Key key, this.title}) : super(key: key);
-
   final String title;
+
+  LoginPage({Key key, this.title}) : super(key: key);
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -25,22 +25,19 @@ class _LoginPageState extends State<LoginPage> {
     _stringValidator = new StringValidator();
   }
 
-  void _checkEmail() {
-    setState(() {
-      if (!_stringValidator.isEmail(_emailTextField.controller.text.trim())) {
-        _errorMessage = "You must provide a valid email.\n";
-      } else {
-        _errorMessage = "";
-      }
-    });
-  }
-
-  void _checkPass() {
-    setState(() {
-      if (_passwordTextField.controller.text.isEmpty) {
-        _errorMessage += "You must provide a password.\n";
-      }
-    });
+  void _checkFields() {
+    final StringBuffer errors = StringBuffer();
+    if (!_stringValidator.isEmail(_emailTextField.controller.text.trim())) {
+      errors.writeln('You must provide a valid email.');
+    }
+    if (_passwordTextField.controller.text.isEmpty) {
+      errors.writeln('You must provide a password.');
+    }
+    if (errors.length > 0) {
+      setState(() {
+        _errorMessage = errors.toString();
+      });
+    }
   }
 
   @override
@@ -61,8 +58,7 @@ class _LoginPageState extends State<LoginPage> {
               children: <Widget>[
                 RaisedButton(
                     onPressed: () {
-                      _checkEmail();
-                      _checkPass();
+                      _checkFields();
                     },
                     child:
                         Text("Log in", style: TextStyle(color: Colors.green)))
