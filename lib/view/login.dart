@@ -33,11 +33,9 @@ class _LoginPageState extends State<LoginPage> {
     if (_passwordTextField.controller.text.isEmpty) {
       errors.writeln('You must provide a password.');
     }
-    if (errors.length > 0) {
-      setState(() {
-        _errorMessage = errors.toString();
-      });
-    }
+    setState(() {
+      _errorMessage = errors.toString();
+    });
   }
 
   @override
