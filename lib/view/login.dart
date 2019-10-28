@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pictron/logic/validation/string_validator.dart';
-import 'package:pictron/view/widget/pictron_password_text_field.dart';
-import 'package:pictron/view/widget/pictron_text_field.dart';
+import 'package:pictron/view/widget/text/pictron_password_text_field.dart';
+import 'package:pictron/view/widget/text/pictron_text_field.dart';
 
 class LoginPage extends StatefulWidget {
   final String title;
@@ -51,17 +51,30 @@ class _LoginPageState extends State<LoginPage> {
               _errorMessage,
               style: TextStyle(color: Colors.red),
             ),
-            ButtonBar(
-              alignment: MainAxisAlignment.center,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                RaisedButton(
-                    onPressed: () {
-                      _checkFields();
-                    },
-                    child:
-                        Text("Log in", style: TextStyle(color: Colors.green)))
-              ],
-            )
+              ButtonBar(
+                children: <Widget>[
+                  RaisedButton(
+                      onPressed: () {
+                        _checkFields();
+                      },
+                      child:
+                          Text('Register', style: TextStyle(color: Colors.green)))
+                ],
+              ),
+              ButtonBar(
+                children: <Widget>[
+                  RaisedButton(
+                      onPressed: () {
+                        _checkFields();
+                      },
+                      child:
+                          Text('Log in', style: TextStyle(color: Colors.green)))
+                ],
+              ),
+            ],)
           ],
         ),
       constraints: BoxConstraints(maxHeight: 400, maxWidth: 400),
