@@ -43,9 +43,8 @@ class _RegisterState extends State<Register> {
       errors.writeln('You must provide a password.');
     }
     setState(() {
-      if (errors.length != 0) {
-        _errorMessage = errors.toString();
-      } else {
+      _errorMessage = errors.toString();
+      if (errors.length == 0) {
         // Send a petition to the API.
         // If the API responds with an affirmative answer, we go back to the
         // login view.

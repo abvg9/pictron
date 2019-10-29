@@ -50,9 +50,8 @@ class _LoginPageState extends State<LoginPage> {
       errors.writeln('You must provide a password.');
     }
     setState(() {
-      if (errors.length != 0) {
-        _errorMessage = errors.toString();
-      } else {
+      _errorMessage = errors.toString();
+      if (errors.length == 0) {
         // Send a petition to the API.
       }
     });
