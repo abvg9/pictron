@@ -7,7 +7,7 @@ void main() => runApp(Pictron());
 class Pictron extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([
+    SystemChrome.setPreferredOrientations(<DeviceOrientation>[
       DeviceOrientation.landscapeLeft,
     ]);
     return MaterialApp(
