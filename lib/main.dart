@@ -1,16 +1,21 @@
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'view/login.dart';
 
 void main() => runApp(Pictron());
 
 class Pictron extends StatelessWidget {
-  // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) => MaterialApp(
-        title: 'Pictron',
-        theme: ThemeData(
-          primarySwatch: Colors.yellow,
-        ),
-        home: const LoginPage(title: 'Pictron'),
-      );
+  Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeLeft,
+    ]);
+    return MaterialApp(
+      title: 'Pictron',
+      theme: ThemeData(
+        primarySwatch: Colors.yellow,
+      ),
+      home: const LoginPage(title: 'Pictron'),
+    );
+  }
 }
