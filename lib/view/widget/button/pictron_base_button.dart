@@ -4,15 +4,13 @@ class PictronBaseButton extends ButtonBar {
   PictronBaseButton({
     Key key,
     String text = '',
-    Function function,
+    @required VoidCallback onPressed,
     TextStyle textStyle,
   }) : super(
     key: key,
     children: <Widget>[
       RaisedButton(
-          onPressed: () {
-            function();
-          },
+          onPressed: onPressed,
           child: Text(text, style: textStyle))
     ],
   );

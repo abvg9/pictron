@@ -24,11 +24,11 @@ class _LoginPageState extends State<LoginPage> {
 
     _logInButton = PictronBaseButton(
         text: 'Log in',
-        function: _checkFields,
+        onPressed: _checkFields,
         textStyle: TextStyle(color: Colors.green));
     _regInButton = PictronBaseButton(
         text: 'Register',
-        function: _goToRegister,
+        onPressed: _goToRegister,
         textStyle: TextStyle(color: Colors.green));
   }
 
