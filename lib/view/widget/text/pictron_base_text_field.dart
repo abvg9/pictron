@@ -7,7 +7,7 @@ class PictronBaseTextField extends TextField {
     String placeholder,
     bool obscureText = false,
   }) : super(
-    controller: new TextEditingController(),
+    controller: TextEditingController(),
     decoration:
       null == placeholder
         ? null

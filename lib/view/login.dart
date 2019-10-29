@@ -6,30 +6,21 @@ import 'package:pictron/view/widget/button/pictron_base_button.dart';
 import 'package:pictron/view/register.dart';
 
 class LoginPage extends StatefulWidget {
-  final String title;
-
-  LoginPage({Key key, this.title}) : super(key: key);
+  const LoginPage({Key key, this.title}) : super(key: key);
 
   @override
   _LoginPageState createState() => _LoginPageState();
+
+  final String title;
 }
 
 class _LoginPageState extends State<LoginPage> {
-  StringValidator _stringValidator;
-
-  PictronTextField _emailTextField;
-  PictronPasswordTextField _passwordTextField;
-
-  String _errorMessage;
-
-  PictronBaseButton _logInButton;
-  PictronBaseButton _regInButton;
 
   _LoginPageState() {
     _errorMessage = '';
     _emailTextField = PictronTextField(placeholder: 'Email');
     _passwordTextField = PictronPasswordTextField(placeholder: 'Password');
-    _stringValidator = new StringValidator();
+    _stringValidator = StringValidator();
 
     _logInButton = PictronBaseButton(
         text: 'Log in',
@@ -40,6 +31,16 @@ class _LoginPageState extends State<LoginPage> {
         function: _goToRegister,
         textStyle: TextStyle(color: Colors.green));
   }
+
+  StringValidator _stringValidator;
+
+  PictronTextField _emailTextField;
+  PictronPasswordTextField _passwordTextField;
+
+  String _errorMessage;
+
+  PictronBaseButton _logInButton;
+  PictronBaseButton _regInButton;
 
   void _checkFields() {
     final StringBuffer errors = StringBuffer();
@@ -57,13 +58,15 @@ class _LoginPageState extends State<LoginPage> {
   void _goToRegister() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => Register()),
+      MaterialPageRoute<dynamic>(builder: (BuildContext context) => Register()),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    Widget container = Container(
+    final Widget container = Container(
+      constraints: const BoxConstraints(maxHeight: 400, maxWidth: 400),
+      padding: const EdgeInsets.all(10),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -83,8 +86,6 @@ class _LoginPageState extends State<LoginPage> {
           )
         ],
       ),
-      constraints: BoxConstraints(maxHeight: 400, maxWidth: 400),
-      padding: EdgeInsets.all(10),
     );
     return Scaffold(
       appBar: AppBar(
