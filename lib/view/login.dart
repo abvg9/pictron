@@ -15,7 +15,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   _LoginPageState() {
     _errorMessage = '';
     _emailTextField = PictronTextField(placeholder: 'Email');
@@ -51,14 +50,19 @@ class _LoginPageState extends State<LoginPage> {
       errors.writeln('You must provide a password.');
     }
     setState(() {
-      _errorMessage = errors.toString();
+      if (errors.length != 0) {
+        _errorMessage = errors.toString();
+      } else {
+        // Send a petition to the API.
+      }
     });
   }
 
   void _goToRegister() {
     Navigator.push(
       context,
-      MaterialPageRoute<dynamic>(builder: (BuildContext context) => Register()),
+      MaterialPageRoute<dynamic>(
+          builder: (BuildContext context) => const Register(title: 'Register')),
     );
   }
 
