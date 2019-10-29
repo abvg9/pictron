@@ -1,9 +1,0 @@
-name: ci-dartanalyzer
-on: [push]
-jobs:
-  build:
-    name: ci-dartanalyzer
-    runs-on: ubuntu-latest
-    steps:
-      - uses: bltavares/actions/dartanalyzer@master
-      - run: dartanalyzer --options=analysis_options.yaml .
