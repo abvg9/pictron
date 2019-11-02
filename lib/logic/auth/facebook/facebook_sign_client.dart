@@ -21,7 +21,7 @@ class _FacebookSignClientState extends State<FacebookSignClient> {
 
   FacebookLogin _facebookLogin;
   FacebookLoginResult _result;
-  FacebookAccessToken _token;
+  //FacebookAccessToken _token;
   LoginAnswer _infoMessage;
 
   @override
@@ -76,7 +76,7 @@ class _FacebookSignClientState extends State<FacebookSignClient> {
           _infoMessage = LoginAnswer.error;
           break;
       }
-      _token = _result.accessToken;
+      //_token = _result.accessToken;
     });
   }
 }
