@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:flutter/material.dart';
 
-enum LoginAnswer {successfully, cancelled, error, logOut}
+enum LoginAnswer { successfully, cancelled, error, logOut }
 
 class FacebookSignClient extends StatefulWidget {
   const FacebookSignClient({Key key, this.title}) : super(key: key);
@@ -14,7 +14,6 @@ class FacebookSignClient extends StatefulWidget {
 }
 
 class _FacebookSignClientState extends State<FacebookSignClient> {
-
   _FacebookSignClientState() {
     _facebookLogin = FacebookLogin();
     _infoMessage = LoginAnswer.successfully;
@@ -54,7 +53,6 @@ class _FacebookSignClientState extends State<FacebookSignClient> {
     );
   }
 
-
   void _logOutFacebook() {
     _facebookLogin.logOut();
     setState(() {
@@ -63,13 +61,11 @@ class _FacebookSignClientState extends State<FacebookSignClient> {
   }
 
   Future<void> _logInFacebook() async {
-
     _facebookLogin.loginBehavior = FacebookLoginBehavior.webViewOnly;
     _result = await _facebookLogin.logIn(<String>['email']);
 
     setState(() {
-      switch(_result.status) {
-
+      switch (_result.status) {
         case FacebookLoginStatus.loggedIn:
           _infoMessage = LoginAnswer.successfully;
           break;
@@ -82,7 +78,5 @@ class _FacebookSignClientState extends State<FacebookSignClient> {
       }
       _token = _result.accessToken;
     });
-
   }
-
 }
