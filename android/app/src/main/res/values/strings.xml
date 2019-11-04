@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name"> "pictron"</string>
+    <string name="facebook_app_id">470821556974922</string>
+    <string name="fb_login_protocol_scheme">fb470821556974922</string>
+</resources>
+
+
