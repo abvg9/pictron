@@ -10,7 +10,7 @@ class GoogleSignClient {
     _initialize();
   }
 
-  GoogleSignInAccount currentUser;
+  GoogleSignInAccount _currentUser;
   GoogleSignIn _googleSignIn;
 
   Future<void> handleSignIn() async {
@@ -23,7 +23,7 @@ class GoogleSignClient {
 
   void _initialize() {
     _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account) {
-      currentUser = account;
+      _currentUser = account;
     });
     _googleSignIn.signInSilently();
   }
