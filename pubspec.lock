@@ -74,6 +74,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.7"
+  mvc_pattern:
+    dependency: "direct main"
+    description:
+      name: mvc_pattern
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.5.0"
   path:
     dependency: transitive
     description:
