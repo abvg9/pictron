@@ -13,15 +13,13 @@ class App extends AppMVC {
 
   static String get title => _app.title.toString();
 
-  Widget build(BuildContext context) {
-    _app = MaterialApp(
+  @override
+  Widget build(BuildContext context) => _app = MaterialApp(
       title: 'Pictron',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       home: TestScreen(),
     );
-    return _app;
-  }
 
 }
