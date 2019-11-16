@@ -1,27 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:pictron/logic/validation/string_validator.dart';
-import 'package:pictron/view/widget/text/pictron_password_text_field.dart';
-import 'package:pictron/view/widget/text/pictron_text_field.dart';
-import 'package:pictron/view/widget/button/pictron_base_button.dart';
+import 'package:pictron/src/model/validation/string_validator.dart';
+import 'package:pictron/src/widgets/text/pictron_text_field.dart';
+import 'package:pictron/src/widgets/text/pictron_password_text_field.dart';
+import 'package:pictron/src/widgets/button/pictron_base_button.dart';
+import 'package:pictron/src/screens/register.dart';
 
-class Register extends StatefulWidget {
-  const Register({Key key, this.title}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key key, this.title}) : super(key: key);
 
   @override
-  _RegisterState createState() => _RegisterState();
+  _LoginPageState createState() => _LoginPageState();
 
   final String title;
 }
 
-class _RegisterState extends State<Register> {
-  _RegisterState() {
+class _LoginPageState extends State<LoginPage> {
+  _LoginPageState() {
     _errorMessage = '';
     _emailTextField = PictronTextField(placeholder: 'Email');
     _passwordTextField = PictronPasswordTextField(placeholder: 'Password');
     _stringValidator = StringValidator();
-    _registerButton = PictronBaseButton(
-        text: 'Register',
+
+    _logInButton = PictronBaseButton(
+        text: 'Log in',
         onPressed: _checkFields,
+        textStyle: TextStyle(color: Colors.green));
+    _regInButton = PictronBaseButton(
+        text: 'Register',
+        onPressed: _goToRegister,
         textStyle: TextStyle(color: Colors.green));
   }
 
@@ -32,7 +38,8 @@ class _RegisterState extends State<Register> {
 
   String _errorMessage;
 
-  PictronBaseButton _registerButton;
+  PictronBaseButton _logInButton;
+  PictronBaseButton _regInButton;
 
   void _checkFields() {
     final StringBuffer errors = StringBuffer();
@@ -46,11 +53,16 @@ class _RegisterState extends State<Register> {
       _errorMessage = errors.toString();
       if (errors.length == 0) {
         // Send a petition to the API.
-        // If the API responds with an affirmative answer, we go back to the
-        // login view.
-        Navigator.pop(context);
       }
     });
+  }
+
+  void _goToRegister() {
+    Navigator.push(
+      context,
+      MaterialPageRoute<dynamic>(
+          builder: (BuildContext context) => const Register(title: 'Register')),
+    );
   }
 
   @override
@@ -71,7 +83,8 @@ class _RegisterState extends State<Register> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              _registerButton,
+              _logInButton,
+              _regInButton,
             ],
           )
         ],

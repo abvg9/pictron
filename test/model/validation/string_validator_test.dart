@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pictron/logic/validation/string_validator.dart';
+import 'package:pictron/src/model//validation/string_validator.dart';
 
 void main() {
   group('String validator tests', () {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pictron/view/widget/text/pictron_base_text_field.dart';
+import 'package:pictron/src/widgets/text/pictron_base_text_field.dart';
 
 class PictronTextField extends PictronBaseTextField {
 

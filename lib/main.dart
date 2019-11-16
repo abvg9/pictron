@@ -1,21 +1,7 @@
-import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-import 'view/login.dart';
 
-void main() => runApp(Pictron());
+import 'package:pictron/src/app.dart';
 
-class Pictron extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations(<DeviceOrientation>[
-      DeviceOrientation.landscapeLeft,
-    ]);
-    return MaterialApp(
-      title: 'Pictron',
-      theme: ThemeData(
-        primarySwatch: Colors.yellow,
-      ),
-      home: const LoginPage(title: 'Pictron'),
-    );
-  }
+void main() {
+  runApp(App());
 }
