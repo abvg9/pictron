@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pictron/src/widget/arrow_button.dart';
 
 class TestScreen extends StatelessWidget {
   @override
@@ -8,8 +9,13 @@ class TestScreen extends StatelessWidget {
           appBar: AppBar(
             title: const Text('Welcome to Flutter'),
           ),
-          body: Center(
-            child: const Text('Hello World'),
+          body: Row(
+            children: const <Widget>[
+              Text('Hello World'),
+              ArrowButton(left: true),
+              ArrowButton(left: false),
+            ],
+
           ),
         ),
       );
