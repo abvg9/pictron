@@ -1,22 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:pictron/src/widget/arrow_button.dart';
 
-class TestScreen extends StatelessWidget {
+class StoryScreen extends StatefulWidget {
+
+  StoryScreen({String title, String url}):
+        storyTitle = title,
+        imageUrl = url;
+
+  final String storyTitle;
+  String imageUrl;
+
+  @override
+  State<StatefulWidget> createState() =>
+                        _StoryScreenState(title: storyTitle, url: imageUrl);
+}
+
+class _StoryScreenState extends State<StoryScreen> {
+
+  _StoryScreenState({String title, String url}):
+        storyTitle = title,
+        imageUrl = url;
+
+  final String storyTitle;
+  String imageUrl;
+
   @override
   Widget build(BuildContext context) => MaterialApp(
-    title: 'Welcome to Flutter',
+    title: 'Pictron',
     home: Scaffold(
       appBar: AppBar(
-        title: const Text('Cuento'),
+        title: Text('Cuento: $storyTitle'),
       ),
-      body: Row(
+      body: Center(child:
+      Row(
         children: <Widget>[
           const ArrowButton(left: true),
-          Ink.image(
-            image: null,
-            fit: BoxFit.fill),
+          Image.network(imageUrl),
           const ArrowButton(left: false),
         ],
+      ),
       ),
     ),
   );
