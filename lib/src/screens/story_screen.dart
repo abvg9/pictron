@@ -1,45 +1,65 @@
 import 'package:flutter/material.dart';
+
 import 'package:pictron/src/widget/arrow_button.dart';
+import 'package:pictron/src/controllers/main_controller.dart';
+import 'package:pictron/src/model/transfers/story_transfer.dart';
 
 class StoryScreen extends StatefulWidget {
 
-  StoryScreen({String title, String url}):
-        storyTitle = title,
-        imageUrl = url;
-
-  final String storyTitle;
-  String imageUrl;
-
   @override
   State<StatefulWidget> createState() =>
-                        _StoryScreenState(title: storyTitle, url: imageUrl);
+      _StoryScreenState(story: Con.con.getStory());
 }
 
 class _StoryScreenState extends State<StoryScreen> {
 
-  _StoryScreenState({String title, String url}):
-        storyTitle = title,
-        imageUrl = url;
+  _StoryScreenState({StoryTransfer story}):
+        _st = story,
+        _imageUrl = story.pages[story.currentP].imageUrl;
 
-  final String storyTitle;
-  String imageUrl;
+  final StoryTransfer _st;
+  String _imageUrl;
 
   @override
   Widget build(BuildContext context) => MaterialApp(
     title: 'Pictron',
     home: Scaffold(
       appBar: AppBar(
-        title: Text('Cuento: $storyTitle'),
+        title: Text('Cuento: ${_st.title}'),
       ),
       body: Center(child:
-      Row(
-        children: <Widget>[
-          const ArrowButton(left: true),
-          Image.network(imageUrl),
-          const ArrowButton(left: false),
-        ],
-      ),
+        Row(
+          children: <Widget>[
+            ArrowButton(flex: 1, height: 100,
+                event: (){onClickArrowB(isLeft: true);}),
+            Expanded(flex: 5, child: Image.network(_imageUrl)),
+            ArrowButton(left: false, flex: 1, height: 100,
+                        event: (){onClickArrowB(isLeft: false);}),
+          ],
+        ),
       ),
     ),
   );
+
+  /// This function is used to manage a click on any arrow button
+  void onClickArrowB({bool isLeft}){
+    int incr = 0;
+
+    if(isLeft){
+      if(_st.currentP == 0){
+        return;
+      }
+      incr = -1;
+    }
+    else {
+      if(_st.currentP == _st.pages.length-1){
+        return;
+      }
+      incr = 1;
+    }
+
+    _st.currentP += incr;
+
+    setState(() => _imageUrl = _st.pages[_st.currentP].imageUrl);
+  }
 }

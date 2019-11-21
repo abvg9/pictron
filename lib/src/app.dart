@@ -18,6 +18,6 @@ class App extends AppMVC {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: StoryScreen(title: 'Prueba', url: 'https://picsum.photos/250?image=9'),
+        home: StoryScreen(),
       );
 }
