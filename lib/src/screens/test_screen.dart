@@ -11,11 +11,11 @@ class TestScreen extends StatelessWidget {
           ),
           body: Row(
             children: const <Widget>[
-              Text('Hello World'),
-              ArrowButton(left: true),
-              ArrowButton(left: false),
+              ArrowButton(left: true, height: 60),
+              Expanded(flex: 4, child:
+                    Text('Hello World', textAlign: TextAlign.center)),
+              ArrowButton(left: false, height: 60),
             ],
-
           ),
         ),
       );
