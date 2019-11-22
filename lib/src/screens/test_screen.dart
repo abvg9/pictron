@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pictron/src/widget/arrow_button.dart';
+import 'package:pictron/src/widget/secret_button.dart';
 
 class TestScreen extends StatelessWidget {
   @override
@@ -10,11 +11,12 @@ class TestScreen extends StatelessWidget {
             title: const Text('Welcome to Flutter'),
           ),
           body: Row(
-            children: const <Widget>[
-              ArrowButton(left: true, height: 60),
-              Expanded(flex: 4, child:
+            children: <Widget>[
+              const ArrowButton(left: true, height: 60),
+              const Expanded(flex: 2, child:
                     Text('Hello World', textAlign: TextAlign.center)),
-              ArrowButton(left: false, height: 60),
+              // ignore: avoid_print
+              SecretButton(event: (){print('secret button');})
             ],
           ),
         ),
