@@ -21,6 +21,9 @@ class StoryLogic {
           StoryPageTransfer(id: 0, url: 'https://picsum.photos/250?image=9'),
           StoryPageTransfer(id: 1,
               url: 'https://upload.wikimedia.org/wikipedia/'
-                  'commons/6/69/IBM_PC_5150.jpg')]
+                  'commons/6/69/IBM_PC_5150.jpg'),
+          StoryPageTransfer(id: 2, url: 'https://thoughtcatalog.files.wordpress'
+              '.com/2018/06/leftoverpuns-computer.jpg?w=1200&resize=1200,'
+              '667&quality=95&strip=all&crop=1')]
         );
 }

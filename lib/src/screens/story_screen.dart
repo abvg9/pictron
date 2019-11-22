@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:pictron/src/widget/arrow_button.dart';
 import 'package:pictron/src/controllers/main_controller.dart';
 import 'package:pictron/src/model/transfers/story_transfer.dart';
+import 'package:pictron/src/widget/visibility.dart';
+import 'package:pictron/src/widget/secret_button.dart';
 
 class StoryScreen extends StatefulWidget {
 
@@ -20,6 +23,13 @@ class _StoryScreenState extends State<StoryScreen> {
   static const double _arrowHeight = 100;
   final StoryTransfer _st;
   String _imageUrl;
+  VisibilityFlag _leftArrowVi = VisibilityFlag.invisible;
+  VisibilityFlag _rightArrowVi = VisibilityFlag.visible;
+  GestureTapCallback _firstSecretOnTap;
+  GestureTapCallback _secondSecretOnTap;
+  int _firstCodeTaps = 0;
+  int _secondCodeTaps = 0;
+
 
   @override
   Widget build(BuildContext context) => MaterialApp(
@@ -28,18 +38,37 @@ class _StoryScreenState extends State<StoryScreen> {
       appBar: AppBar(
         title: Text('Cuento: ${_st.title}'),
       ),
-      body: Center(child:
-        Row(
+      body: Column(children: <Widget>[
+        Expanded(child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            ArrowButton(height: _arrowHeight,
-                event: (){onClickArrowB(isLeft: true);}),
+            Column(children: <Widget>[
+              SecretButton(event: _firstSecretOnTap)
+            ],),
 
-            Expanded(flex: 5, child: Image.network(_imageUrl)),
-
-            ArrowButton(left: false, height: _arrowHeight,
-                        event: (){onClickArrowB(isLeft: false);}),
+            Column(children: <Widget>[
+              SecretButton(event: _secondSecretOnTap)
+            ],)
           ],
+        )),
+
+        Expanded(flex: 2, child:
+          Row(
+            children: <Widget>[
+              ArrowButton(height: _arrowHeight, visibility: _leftArrowVi,
+                  event: (){onClickArrowB(isLeft: true);}),
+
+              Expanded(flex: 5, child: Image.network(_imageUrl)),
+
+              ArrowButton(left: false, height: _arrowHeight,
+                  visibility: _rightArrowVi,
+                  event: (){onClickArrowB(isLeft: false);}),
+            ],
+          ),
         ),
+
+        Expanded(child: Container())
+      ],
       ),
     ),
   );
@@ -63,6 +92,54 @@ class _StoryScreenState extends State<StoryScreen> {
 
     _st.currentP += incr;
 
-    setState(() => _imageUrl = _st.pages[_st.currentP].imageUrl);
+    setState(() {
+      _imageUrl = _st.pages[_st.currentP].imageUrl;
+
+      _leftArrowVi = _st.currentP == 0 ?
+                VisibilityFlag.invisible : VisibilityFlag.visible;
+
+      _rightArrowVi = _st.currentP == _st.pages.length-1 ?
+                VisibilityFlag.invisible : VisibilityFlag.visible;
+
+      _firstSecretOnTap = _st.currentP == _st.pages.length-1 ?
+                (){tapSecretCode(id: 1);} : null;
+
+      _secondSecretOnTap = _st.currentP == _st.pages.length-1 ?
+          (){tapSecretCode(id: 2);} : null;
+
+      _firstCodeTaps = 0;
+      _secondCodeTaps = 0;
+    });
   }
+
+  /// It's used to finish the story.
+  /// Secret code:
+  ///     1: 2 taps on the first(top/left) secret button
+  ///     2: 1 taps on the second(top/right) secret button
+  void tapSecretCode({int id}) {
+    if (id == 1){
+      if(_firstCodeTaps < 2){
+        _firstCodeTaps++;
+      }
+      else {
+        _firstCodeTaps = 0;
+        _secondCodeTaps = 0;
+      }
+    }
+    else if(id == 2){
+      if(_firstCodeTaps != 2){
+        _secondCodeTaps = 0;
+        _firstCodeTaps = 0;
+      }
+      else {
+        _secondCodeTaps++;
+      }
+    }
+
+    /// Code accepted
+    if(_firstCodeTaps == 2 && _secondCodeTaps == 1){
+      SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+    }
+  }
+
 }
