@@ -14,7 +14,7 @@ class StoryLogic {
   static StoryLogic get storyL => _this;
 
   /// This function is used as enter point to load a story
-  /// TODO load from DAO the story transfer
+  /// TODO load the story transfer from DAO class
   StoryTransfer loadStory(int id) =>
       StoryTransfer(id: id, name: 'Prueba',
         list: <StoryPageTransfer>[

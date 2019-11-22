@@ -17,6 +17,7 @@ class _StoryScreenState extends State<StoryScreen> {
         _st = story,
         _imageUrl = story.pages[story.currentP].imageUrl;
 
+  static const double _arrowHeight = 100;
   final StoryTransfer _st;
   String _imageUrl;
 
@@ -30,10 +31,12 @@ class _StoryScreenState extends State<StoryScreen> {
       body: Center(child:
         Row(
           children: <Widget>[
-            ArrowButton(flex: 1, height: 100,
+            ArrowButton(height: _arrowHeight,
                 event: (){onClickArrowB(isLeft: true);}),
+
             Expanded(flex: 5, child: Image.network(_imageUrl)),
-            ArrowButton(left: false, flex: 1, height: 100,
+
+            ArrowButton(left: false, height: _arrowHeight,
                         event: (){onClickArrowB(isLeft: false);}),
           ],
         ),
