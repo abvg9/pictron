@@ -1,6 +1,4 @@
-import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
-import 'package:pictron/src/controllers/main_controller.dart';
 import 'package:pictron/src/model/Transfers/children.dart';
 import 'package:pictron/src/model/Transfers/children_group.dart';
 import 'package:pictron/src/model/validation/string_validator.dart';
@@ -38,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
   String _emailErrorMessage;
   String _passwordErrorMessage;
 
-  SignClient _signClient;
+  SignClient signClient;
 
   void _checkFields() {
     if (!_stringValidator.isEmail(_emailTextField.controller.text.trim())) {
@@ -209,7 +207,7 @@ class _LoginPageState extends State<LoginPage> {
               SignInButton(
                 Buttons.Google,
                 onPressed: () {
-                  _signClient = GoogleSignClient()..handleSignIn();
+                  signClient = GoogleSignClient()..handleSignIn();
                 },
                 text: 'Inicia sesión con Google',
                 shape: RoundedRectangleBorder(
@@ -226,7 +224,7 @@ class _LoginPageState extends State<LoginPage> {
                 Buttons.Facebook,
                 text: 'Inicia sesión con Facebook',
                 onPressed: () {
-                  _signClient = FacebookSignClient()..handleSignIn();
+                  signClient = FacebookSignClient()..handleSignIn();
                 },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),

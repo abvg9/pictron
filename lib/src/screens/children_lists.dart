@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pictron/src/controllers/main_controller.dart';
 import 'package:pictron/src/model/Transfers/children.dart';
 import 'package:pictron/src/model/Transfers/children_group.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
