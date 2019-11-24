@@ -13,6 +13,6 @@ void main() {
     // Build our app and trigger a frame.
     await tester.pumpWidget(App());
 
-    expect(find.text('Log in'), findsOneWidget);
+    expect(find.text('Login'), findsOneWidget);
   });
 }

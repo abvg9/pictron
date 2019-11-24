@@ -14,16 +14,17 @@ class App extends AppMVC {
   static String get title => _app.title.toString();
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations(<DeviceOrientation>[
       DeviceOrientation.landscapeLeft,
     ]);
+    SystemChrome.setEnabledSystemUIOverlays(<SystemUiOverlay>[]);
     return _app = MaterialApp(
-      title: 'Pictron',
+      title: 'PictoTEAsk',
       theme: ThemeData(
-        primarySwatch: Colors.yellow,
+        canvasColor: Colors.cyan[100],
       ),
-      home: const LoginPage(title: 'Pictron'),
+      home: const LoginPage(),
     );
   }
 }

@@ -6,8 +6,8 @@ class PictronPasswordTextField extends PictronBaseTextField {
     Key key,
     String placeholder,
   }) : super(
-    key: key,
-    placeholder: placeholder,
-    obscureText: true,
-  );
+          key: key,
+          placeholder: placeholder,
+          obscureText: true,
+        );
 }
