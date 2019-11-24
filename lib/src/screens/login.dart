@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pictron/src/model/Transfers/children.dart';
-import 'package:pictron/src/model/Transfers/children_group.dart';
+import 'package:pictron/src/model/transfers/children.dart';
+import 'package:pictron/src/model/transfers/children_group.dart';
 import 'package:pictron/src/model/validation/string_validator.dart';
 import 'package:pictron/src/widgets/text/pictron_text_field.dart';
 import 'package:pictron/src/widgets/text/pictron_password_text_field.dart';
