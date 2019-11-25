@@ -1,12 +1,12 @@
-class Parent {
-  Parent(String id, String email, String name, String surname) {
+class User {
+  User(String id, String email, String name, String surname) {
     _id = id;
     _email = email;
     _name = name;
     _surname = surname;
   }
 
-  Parent.map(dynamic obj) {
+  User.map(dynamic obj) {
     _id = obj['id_tutor'].toString();
     _email = obj['email'].toString();
     _name = obj['nombre'].toString();
