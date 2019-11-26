@@ -21,5 +21,15 @@ class SignInDao extends Dao {
         }
 
         return User.map(res['tutor']);
-      });
+      }).catchError((Object e) => throw e);
+
+  Future<User> loginAuth(Object token) =>
+      post(_url, body: <String, String>{'idtoken': token.toString()})
+          .then((dynamic res) {
+        if (res['error_msg'] != null) {
+          throw _UnknownUser();
+        }
+
+        return User.map(res['tutor']);
+      }).catchError((Object e) => throw e);
 }

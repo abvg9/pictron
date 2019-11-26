@@ -17,20 +17,20 @@ class GoogleSignClient extends SignClient {
 
   @override
   Future<void> handleSignIn() async {
-    await _googleSignIn.signIn();
+    _currentUser = await _googleSignIn.signIn();
     _googleSignInAuthentication = await _currentUser.authentication;
   }
 
   @override
   Future<void> handleSignOut() async {
-    await _googleSignIn.disconnect();
+    _currentUser = await _googleSignIn.disconnect();
   }
 
-  void _initialize() {
+  Future<void> _initialize() async {
     _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account) {
       _currentUser = account;
     });
-    _googleSignIn.signInSilently();
+    _currentUser = await _googleSignIn.signInSilently();
   }
 
   @override

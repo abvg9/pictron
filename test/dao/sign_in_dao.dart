@@ -12,7 +12,7 @@ void main() {
 void isAValidPetition() {
   test(
       'Sign in dao must detects that '
-      'the emails are in a correct format', () {
+      'the credentials are correct.', () {
     final SignInDao signInDao = SignInDao();
 
     const String invalidEmail = 'fakeEmail@hotmail.com';

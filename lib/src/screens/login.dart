@@ -9,6 +9,8 @@ import 'package:pictron/src/model/auth/facebook/facebook_sign_client.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:pictron/src/model/auth/google/google_sign_client.dart';
 import 'package:pictron/src/model/auth/sign_client.dart';
+import 'package:pictron/src/controllers/main_controller.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key key}) : super(key: key);
@@ -26,6 +28,8 @@ class _LoginPageState extends State<LoginPage> {
     _passwordTextField = PictronPasswordTextField(placeholder: 'Contraseña');
 
     _stringValidator = StringValidator();
+
+    _controller = Con();
   }
 
   StringValidator _stringValidator;
@@ -36,57 +40,112 @@ class _LoginPageState extends State<LoginPage> {
   String _emailErrorMessage;
   String _passwordErrorMessage;
 
-  SignClient signClient;
+  Con _controller;
 
-  void _checkFields() {
-    if (!_stringValidator.isEmail(_emailTextField.controller.text.trim())) {
+  ProgressDialog _pr;
+
+  Future<void> _checkAuthLogin(SignClient signClient) async {
+    //try {
+
+    // Send a petition to the API.
+    // API will return a list of children's and a list of groups.
+    await _controller.signInAuth(signClient);
+    setState(() {
+      final Children harry = Children(
+          'HarryPotter86',
+          'https://assets.afcdn.com/story/20170626/'
+              '1099098_w767h767c1cx853cy523cxt0cyt0cxb1600cyb1201.jpg');
+
+      final Children hermione = Children(
+          'HermioneGrangerSuper',
+          'https://imgix.bustle.com/rehost/2016/9/13/'
+              'df278a16-44e9-4553-80ef-a23966f6d367.jpg'
+              '?w=970&h=546&fit=crop&crop=faces&auto=format&q=70');
+
+      final List<Children> children = <Children>[
+        harry,
+        hermione,
+        harry,
+        hermione,
+        harry,
+      ];
+
+      final ChildrenGroup group1 =
+          ChildrenGroup('Primer ciclo primaria', children);
+
+      final ChildrenGroup group2 =
+          ChildrenGroup('Segundo ciclo primaria', children);
+
+      final List<ChildrenGroup> groups = <ChildrenGroup>[group1, group2];
+
+      _goToChildViewList(children, groups);
+    });
+    //} catch (_) {}
+  }
+
+  Future<void> _checkFields() async {
+    final String user = _emailTextField.controller.text.trim();
+    final String pass = _passwordTextField.controller.text;
+
+    if (!_stringValidator.isEmail(user)) {
       _emailErrorMessage = 'Debes poner un correo válido.';
     } else {
       _emailErrorMessage = '';
     }
 
-    if (_passwordTextField.controller.text.isEmpty) {
+    if (pass.isEmpty) {
       _passwordErrorMessage = 'Debes rellenar el campo contraseña.';
     } else {
       _passwordErrorMessage = '';
     }
 
-    setState(() {
-      if (_passwordErrorMessage.length + _emailErrorMessage.length == 0) {
+    if (_passwordErrorMessage.length + _emailErrorMessage.length == 0) {
+      _pr.show();
+      try {
         // Send a petition to the API.
-
         // API will return a list of children's and a list of groups.
+        await _controller.signIn(user, pass);
+        setState(() {
+          _emailErrorMessage = '';
+          _pr.hide();
+          if (_passwordErrorMessage.length + _emailErrorMessage.length == 0) {
+            final Children harry = Children(
+                'HarryPotter86',
+                'https://assets.afcdn.com/story/20170626/'
+                    '1099098_w767h767c1cx853cy523cxt0cyt0cxb1600cyb1201.jpg');
 
-        final Children harry = Children(
-            'HarryPotter86',
-            'https://assets.afcdn.com/story/20170626/'
-                '1099098_w767h767c1cx853cy523cxt0cyt0cxb1600cyb1201.jpg');
+            final Children hermione = Children(
+                'HermioneGrangerSuper',
+                'https://imgix.bustle.com/rehost/2016/9/13/'
+                    'df278a16-44e9-4553-80ef-a23966f6d367.jpg'
+                    '?w=970&h=546&fit=crop&crop=faces&auto=format&q=70');
 
-        final Children hermione = Children(
-            'HermioneGrangerSuper',
-            'https://imgix.bustle.com/rehost/2016/9/13/'
-                'df278a16-44e9-4553-80ef-a23966f6d367.jpg'
-                '?w=970&h=546&fit=crop&crop=faces&auto=format&q=70');
+            final List<Children> children = <Children>[
+              harry,
+              hermione,
+              harry,
+              hermione,
+              harry,
+            ];
 
-        final List<Children> children = <Children>[
-          harry,
-          hermione,
-          harry,
-          hermione,
-          harry,
-        ];
+            final ChildrenGroup group1 =
+                ChildrenGroup('Primer ciclo primaria', children);
 
-        final ChildrenGroup group1 =
-            ChildrenGroup('Primer ciclo primaria', children);
+            final ChildrenGroup group2 =
+                ChildrenGroup('Segundo ciclo primaria', children);
 
-        final ChildrenGroup group2 =
-            ChildrenGroup('Segundo ciclo primaria', children);
+            final List<ChildrenGroup> groups = <ChildrenGroup>[group1, group2];
 
-        final List<ChildrenGroup> groups = <ChildrenGroup>[group1, group2];
-
-        _goToChildViewList(children, groups);
+            _goToChildViewList(children, groups);
+          }
+        });
+      } catch (e) {
+        setState(() {
+          _pr.hide();
+          _emailErrorMessage = e.toString();
+        });
       }
-    });
+    }
   }
 
   void _goToChildViewList(List<Children> children, List<ChildrenGroup> groups) {
@@ -100,6 +159,22 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    _pr = ProgressDialog(context)
+      ..style(
+          message: 'Conectando',
+          borderRadius: 10,
+          backgroundColor: Colors.white,
+          progressWidget: Container(
+            constraints: const BoxConstraints(maxHeight: 40, maxWidth: 40),
+            child: const CircularProgressIndicator(),
+          ),
+          insetAnimCurve: Curves.easeInOut,
+          progressTextStyle: TextStyle(
+              color: Colors.cyanAccent[100],
+              fontSize: 13,
+              fontWeight: FontWeight.w400),
+          messageTextStyle: TextStyle(
+              color: Colors.black, fontSize: 19, fontWeight: FontWeight.w600));
     final Widget container = Container(
       constraints: const BoxConstraints(maxHeight: 540, maxWidth: 540),
       padding: const EdgeInsets.only(right: 40, left: 40),
@@ -207,7 +282,7 @@ class _LoginPageState extends State<LoginPage> {
               SignInButton(
                 Buttons.Google,
                 onPressed: () {
-                  signClient = GoogleSignClient()..handleSignIn();
+                  _checkAuthLogin(GoogleSignClient());
                 },
                 text: 'Inicia sesión con Google',
                 shape: RoundedRectangleBorder(
@@ -224,7 +299,7 @@ class _LoginPageState extends State<LoginPage> {
                 Buttons.Facebook,
                 text: 'Inicia sesión con Facebook',
                 onPressed: () {
-                  signClient = FacebookSignClient()..handleSignIn();
+                  _checkAuthLogin(FacebookSignClient());
                 },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),

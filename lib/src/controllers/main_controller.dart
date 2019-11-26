@@ -1,5 +1,7 @@
 import 'package:mvc_pattern/mvc_pattern.dart' show ControllerMVC;
-
+import 'package:pictron/src/model/auth/sign_client.dart';
+import 'package:pictron/src/model/dao/sign_in_dao.dart';
+import 'package:pictron/src/model/transfers/user.dart';
 //import 'package:pictron/src/app.dart' show App;
 
 class Con extends ControllerMVC {
@@ -12,5 +14,26 @@ class Con extends ControllerMVC {
   // For easy access in the application
   static Con get con => _this;
 
-  //static final model = Model();
+  static User model;
+
+  static SignClient signInClient;
+
+  Future<void> signIn(String email, String pass) async {
+    final SignInDao signInDao = SignInDao();
+
+    await signInDao.login(email, pass).then((User u) {
+      model = u;
+    }).catchError((Object e) => throw e);
+  }
+
+  Future<void> signInAuth(SignClient signClient) async {
+    signInClient = signClient;
+    await signInClient.handleSignIn();
+
+    final SignInDao signInDao = SignInDao();
+
+    await signInDao.loginAuth(signClient.getToken()).then((User u) {
+      model = u;
+    }).catchError((Object e) => throw e);
+  }
 }

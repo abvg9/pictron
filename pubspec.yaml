@@ -17,6 +17,9 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
+
+  progress_dialog: ^1.2.0
+
   circular_profile_avatar: ^1.0.2
 
   flutter:
