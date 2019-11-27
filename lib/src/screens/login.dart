@@ -45,10 +45,9 @@ class _LoginPageState extends State<LoginPage> {
   ProgressDialog _pr;
 
   Future<void> _checkAuthLogin(SignClient signClient) async {
-
     // Send a petition to the API.
     // API will return a list of children's and a list of groups.
-    await signClient.handleSignOut();
+
     await _controller.signInAuth(signClient);
     setState(() {
       final Children harry = Children('HarryPotter86', '1');

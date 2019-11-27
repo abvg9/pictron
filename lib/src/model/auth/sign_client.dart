@@ -1,5 +1,6 @@
 abstract class SignClient {
   String token;
+  bool connected;
 
   Future<void> handleSignIn();
   Future<void> handleSignOut();
@@ -8,4 +9,6 @@ abstract class SignClient {
     print(token);
     return token;
   }
+
+  bool isConnected() => connected;
 }

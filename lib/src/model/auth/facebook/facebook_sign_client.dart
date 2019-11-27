@@ -4,6 +4,7 @@ import 'package:pictron/src/model/auth/sign_client.dart';
 class FacebookSignClient extends SignClient {
   FacebookSignClient() {
     _facebookLogin = FacebookLogin();
+    connected = false;
   }
 
   FacebookLogin _facebookLogin;
@@ -11,6 +12,7 @@ class FacebookSignClient extends SignClient {
   @override
   Future<void> handleSignOut() async {
     await _facebookLogin.logOut();
+    connected = true;
   }
 
   @override

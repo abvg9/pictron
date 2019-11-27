@@ -3,6 +3,7 @@ import 'package:pictron/src/model/auth/sign_client.dart';
 
 class GoogleSignClient extends SignClient {
   GoogleSignClient() {
+    connected = false;
     _googleSignIn = GoogleSignIn(
       scopes: <String>[
         'email',
@@ -22,11 +23,15 @@ class GoogleSignClient extends SignClient {
   }
 
   @override
-  Future<void> handleSignOut() => _googleSignIn.disconnect();
+  Future<void> handleSignOut() async {
+    connected = false;
+    await _googleSignIn.disconnect();
+  }
 
   void _initialize() {
     _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account) {
       _currentUser = account;
+      connected = true;
     });
     _googleSignIn.signInSilently();
   }
