@@ -1,12 +1,12 @@
 class Children {
-  Children(String name, String urlImage) {
+  Children(String name, String id) {
     _name = name;
-    _urlImage = urlImage;
+    _id = id;
   }
 
   String _name;
-  String _urlImage;
+  String _id;
 
   String getName() => _name;
-  String getUrlImage() => _urlImage;
+  String getId() => _id;
 }

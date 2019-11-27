@@ -45,22 +45,15 @@ class _LoginPageState extends State<LoginPage> {
   ProgressDialog _pr;
 
   Future<void> _checkAuthLogin(SignClient signClient) async {
-    //try {
 
     // Send a petition to the API.
     // API will return a list of children's and a list of groups.
+    await signClient.handleSignOut();
     await _controller.signInAuth(signClient);
     setState(() {
-      final Children harry = Children(
-          'HarryPotter86',
-          'https://assets.afcdn.com/story/20170626/'
-              '1099098_w767h767c1cx853cy523cxt0cyt0cxb1600cyb1201.jpg');
+      final Children harry = Children('HarryPotter86', '1');
 
-      final Children hermione = Children(
-          'HermioneGrangerSuper',
-          'https://imgix.bustle.com/rehost/2016/9/13/'
-              'df278a16-44e9-4553-80ef-a23966f6d367.jpg'
-              '?w=970&h=546&fit=crop&crop=faces&auto=format&q=70');
+      final Children hermione = Children('HermioneGrangerSuper', '2');
 
       final List<Children> children = <Children>[
         harry,
@@ -80,7 +73,6 @@ class _LoginPageState extends State<LoginPage> {
 
       _goToChildViewList(children, groups);
     });
-    //} catch (_) {}
   }
 
   Future<void> _checkFields() async {
@@ -108,36 +100,27 @@ class _LoginPageState extends State<LoginPage> {
         setState(() {
           _emailErrorMessage = '';
           _pr.hide();
-          if (_passwordErrorMessage.length + _emailErrorMessage.length == 0) {
-            final Children harry = Children(
-                'HarryPotter86',
-                'https://assets.afcdn.com/story/20170626/'
-                    '1099098_w767h767c1cx853cy523cxt0cyt0cxb1600cyb1201.jpg');
+          final Children harry = Children('HarryPotter86', '1');
 
-            final Children hermione = Children(
-                'HermioneGrangerSuper',
-                'https://imgix.bustle.com/rehost/2016/9/13/'
-                    'df278a16-44e9-4553-80ef-a23966f6d367.jpg'
-                    '?w=970&h=546&fit=crop&crop=faces&auto=format&q=70');
+          final Children hermione = Children('HermioneGrangerSuper', '2');
 
-            final List<Children> children = <Children>[
-              harry,
-              hermione,
-              harry,
-              hermione,
-              harry,
-            ];
+          final List<Children> children = <Children>[
+            harry,
+            hermione,
+            harry,
+            hermione,
+            harry,
+          ];
 
-            final ChildrenGroup group1 =
-                ChildrenGroup('Primer ciclo primaria', children);
+          final ChildrenGroup group1 =
+              ChildrenGroup('Primer ciclo primaria', children);
 
-            final ChildrenGroup group2 =
-                ChildrenGroup('Segundo ciclo primaria', children);
+          final ChildrenGroup group2 =
+              ChildrenGroup('Segundo ciclo primaria', children);
 
-            final List<ChildrenGroup> groups = <ChildrenGroup>[group1, group2];
+          final List<ChildrenGroup> groups = <ChildrenGroup>[group1, group2];
 
-            _goToChildViewList(children, groups);
-          }
+          _goToChildViewList(children, groups);
         });
       } catch (e) {
         setState(() {
@@ -145,6 +128,8 @@ class _LoginPageState extends State<LoginPage> {
           _emailErrorMessage = e.toString();
         });
       }
+    } else {
+      setState(() {});
     }
   }
 
@@ -156,6 +141,8 @@ class _LoginPageState extends State<LoginPage> {
               ChildList(children: children, childrenGroups: groups)),
     );
   }
+
+  GoogleSignClient google;
 
   @override
   Widget build(BuildContext context) {
@@ -244,12 +231,17 @@ class _LoginPageState extends State<LoginPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              SignInButtonBuilder(
-                text: 'Inicia sesion con tu correo',
-                icon: Icons.email,
+              MaterialButton(
+                height: 35,
+                minWidth: 225,
+                color: Colors.blueAccent,
                 onPressed: _checkFields,
-                backgroundColor: Colors.blue[700],
-              )
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    side: BorderSide(color: Colors.white)),
+                child: const Text('INICIAR SESIÓN',
+                    style: TextStyle(color: Colors.white)),
+              ),
             ],
           ),
           Row(
@@ -281,10 +273,11 @@ class _LoginPageState extends State<LoginPage> {
             children: <Widget>[
               SignInButton(
                 Buttons.Google,
-                onPressed: () {
-                  _checkAuthLogin(GoogleSignClient());
+                onPressed: () async {
+                  await _checkAuthLogin(GoogleSignClient());
                 },
                 text: 'Inicia sesión con Google',
+                padding: const EdgeInsets.only(right: 10),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                     side: BorderSide(color: Colors.white)),
@@ -298,8 +291,9 @@ class _LoginPageState extends State<LoginPage> {
               SignInButton(
                 Buttons.Facebook,
                 text: 'Inicia sesión con Facebook',
-                onPressed: () {
-                  _checkAuthLogin(FacebookSignClient());
+                padding: const EdgeInsets.only(right: 10),
+                onPressed: () async {
+                  await _checkAuthLogin(FacebookSignClient());
                 },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),

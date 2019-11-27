@@ -36,4 +36,8 @@ class Con extends ControllerMVC {
       model = u;
     }).catchError((Object e) => throw e);
   }
+
+  Future<void> signOutAuth() async {
+    await signInClient.handleSignOut();
+  }
 }

@@ -17,8 +17,7 @@ class FacebookSignClient extends SignClient {
   Future<void> handleSignIn() async {
     _facebookLogin.loginBehavior = FacebookLoginBehavior.webViewOnly;
     await _facebookLogin.logIn(<String>['email']);
+    token = await _facebookLogin.currentAccessToken
+        .then((FacebookAccessToken fat) => fat.token);
   }
-
-  @override
-  Object getToken() => _facebookLogin.currentAccessToken;
 }
