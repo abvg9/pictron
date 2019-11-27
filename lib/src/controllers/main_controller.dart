@@ -28,12 +28,23 @@ class Con extends ControllerMVC {
 
   Future<void> signInAuth(SignClient signClient) async {
     signInClient = signClient;
-    await signInClient.handleSignIn();
 
-    final SignInDao signInDao = SignInDao();
+    if (signClient.connected) {
+      await signClient.handleSignOut().catchError((Object e) => throw e);
+    }
 
-    await signInDao.loginAuth(signClient.getToken()).then((User u) {
-      model = u;
-    }).catchError((Object e) => throw e);
+    await signInClient.handleSignIn().catchError((Object e) => throw e);
+
+    signClient.getToken();
+
+    //final SignInDao signInDao = SignInDao();
+
+    //await signInDao.loginAuth(signClient.getToken()).then((User u) {
+    //model = u;
+    //}).catchError((Object e) => throw e);
+  }
+
+  Future<void> signOutAuth() async {
+    await signInClient.handleSignOut();
   }
 }

@@ -20,7 +20,9 @@ dependencies:
 
   progress_dialog: ^1.2.0
 
-  circular_profile_avatar: ^1.0.2
+  firebase_auth: ^0.15.0+1
+
+  http: ^0.12.0+2
 
   flutter:
     sdk: flutter
@@ -47,7 +49,6 @@ flutter_icons:
   android: "launcher_icon"
   ios: true
   image_path: "assets/appicon_def.png"
-  http: ^0.12.0+2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

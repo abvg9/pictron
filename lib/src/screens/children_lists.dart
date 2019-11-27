@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pictron/src/model/transfers/children.dart';
 import 'package:pictron/src/model/transfers/children_group.dart';
-import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 
 class ChildList extends StatefulWidget {
   const ChildList({Key key, this.children, this.childrenGroups})
@@ -39,14 +38,14 @@ class _ChildListState extends State<ChildList> {
               children: <Widget>[
                 Column(
                   children: <Widget>[
-                    CircularProfileAvatar(
-                      children[index].getUrlImage(),
-                      backgroundColor: Colors.transparent,
-                      radius: 40,
-                      cacheImage: true,
-                      onTap: () {
-                        // Open the calendar associated with this child.
-                      },
+                    GestureDetector(
+                      //Opens the calendar of the child.
+                      onTap: () {},
+                      child: CircleAvatar(
+                        backgroundColor: Colors.transparent,
+                        radius: 40,
+                        child: Image.asset('assets/default_profile.jpg'),
+                      ),
                     )
                   ],
                 ),
