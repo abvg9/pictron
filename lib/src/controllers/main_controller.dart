@@ -16,7 +16,7 @@ class Con extends ControllerMVC {
 
   static User model;
 
-  static SignClient signInClient;
+  SignClient signInClient;
 
   Future<void> signIn(String email, String pass) async {
     final SignInDao signInDao = SignInDao();
@@ -30,7 +30,7 @@ class Con extends ControllerMVC {
     signInClient = signClient;
 
     if (signClient.connected) {
-      await signClient.handleSignOut().catchError((Object e) => throw e);
+      await signClient.handleSignOut();
     }
 
     await signInClient.handleSignIn().catchError((Object e) => throw e);

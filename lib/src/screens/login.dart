@@ -49,29 +49,32 @@ class _LoginPageState extends State<LoginPage> {
     // API will return a list of children's and a list of groups.
 
     await _controller.signInAuth(signClient);
-    setState(() {
-      final Children harry = Children('HarryPotter86', '1');
 
-      final Children hermione = Children('HermioneGrangerSuper', '2');
+    if (_controller.signInClient.isConnected()) {
+      setState(() {
+        final Children harry = Children('HarryPotter86', '1');
 
-      final List<Children> children = <Children>[
-        harry,
-        hermione,
-        harry,
-        hermione,
-        harry,
-      ];
+        final Children hermione = Children('HermioneGrangerSuper', '2');
 
-      final ChildrenGroup group1 =
-          ChildrenGroup('Primer ciclo primaria', children);
+        final List<Children> children = <Children>[
+          harry,
+          hermione,
+          harry,
+          hermione,
+          harry,
+        ];
 
-      final ChildrenGroup group2 =
-          ChildrenGroup('Segundo ciclo primaria', children);
+        final ChildrenGroup group1 =
+            ChildrenGroup('Primer ciclo primaria', children);
 
-      final List<ChildrenGroup> groups = <ChildrenGroup>[group1, group2];
+        final ChildrenGroup group2 =
+            ChildrenGroup('Segundo ciclo primaria', children);
 
-      _goToChildViewList(children, groups);
-    });
+        final List<ChildrenGroup> groups = <ChildrenGroup>[group1, group2];
+
+        _goToChildViewList(children, groups);
+      });
+    }
   }
 
   Future<void> _checkFields() async {
