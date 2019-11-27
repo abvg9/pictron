@@ -49,7 +49,6 @@ class _LoginPageState extends State<LoginPage> {
     // API will return a list of children's and a list of groups.
 
     await _controller.signInAuth(signClient);
-
     if (_controller.signInClient.isConnected()) {
       setState(() {
         final Children harry = Children('HarryPotter86', '1');

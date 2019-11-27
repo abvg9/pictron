@@ -17,6 +17,7 @@ class GoogleSignClient extends SignClient {
 
   @override
   Future<void> handleSignIn() async {
+
     _currentUser = await _googleSignIn.signIn().catchError((Object e) {
       throw e;
     });
@@ -32,6 +33,7 @@ class GoogleSignClient extends SignClient {
 
   @override
   Future<void> handleSignOut() async {
+
     await _googleSignIn.disconnect().catchError((Object e) {
       throw e;
     });
@@ -40,6 +42,7 @@ class GoogleSignClient extends SignClient {
   }
 
   Future<void> _initialize() async {
+    
     _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account) {
       _currentUser = account;
     });

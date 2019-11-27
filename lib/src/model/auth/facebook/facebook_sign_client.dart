@@ -11,6 +11,7 @@ class FacebookSignClient extends SignClient {
 
   @override
   Future<void> handleSignOut() async {
+
     await _facebookLogin.logOut();
     connected = false;
   }
@@ -18,6 +19,7 @@ class FacebookSignClient extends SignClient {
   @override
   Future<void> handleSignIn() async {
     _facebookLogin.loginBehavior = FacebookLoginBehavior.webViewOnly;
+
     connected = await _facebookLogin
         .logIn(<String>['email']).then((FacebookLoginResult flr) {
       if (flr.status == FacebookLoginStatus.loggedIn) {
@@ -25,6 +27,7 @@ class FacebookSignClient extends SignClient {
       }
       return false;
     });
+
     token = await _facebookLogin.currentAccessToken
         .then((FacebookAccessToken fat) => fat.token);
   }
