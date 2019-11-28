@@ -27,11 +27,8 @@ class Con extends ControllerMVC {
   }
 
   Future<void> signInAuth(SignClient signClient) async {
-    signInClient = signClient;
 
-    if (signClient.connected) {
-      await signClient.handleSignOut();
-    }
+    signInClient = signClient;
 
     await signInClient.handleSignIn().catchError((Object e) => throw e);
 

@@ -30,6 +30,8 @@ class _LoginPageState extends State<LoginPage> {
     _stringValidator = StringValidator();
 
     _controller = Con();
+    _facebookSignClient = FacebookSignClient();
+    _googleSignClient = GoogleSignClient();
   }
 
   StringValidator _stringValidator;
@@ -43,6 +45,10 @@ class _LoginPageState extends State<LoginPage> {
   Con _controller;
 
   ProgressDialog _pr;
+
+  FacebookSignClient _facebookSignClient;
+
+  GoogleSignClient _googleSignClient;
 
   Future<void> _checkAuthLogin(SignClient signClient) async {
     // Send a petition to the API.
@@ -275,7 +281,7 @@ class _LoginPageState extends State<LoginPage> {
               SignInButton(
                 Buttons.Google,
                 onPressed: () async {
-                  await _checkAuthLogin(GoogleSignClient());
+                  await _checkAuthLogin(_googleSignClient);
                 },
                 text: 'Inicia sesión con Google',
                 padding: const EdgeInsets.only(right: 10),
@@ -294,7 +300,7 @@ class _LoginPageState extends State<LoginPage> {
                 text: 'Inicia sesión con Facebook',
                 padding: const EdgeInsets.only(right: 10),
                 onPressed: () async {
-                  await _checkAuthLogin(FacebookSignClient());
+                  await _checkAuthLogin(_facebookSignClient);
                 },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),

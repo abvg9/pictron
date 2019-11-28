@@ -19,12 +19,14 @@ class GoogleSignClient extends SignClient {
   Future<void> handleSignIn() async {
 
     _currentUser = await _googleSignIn.signIn().catchError((Object e) {
+      connected = false;
       throw e;
     });
 
     token = await _currentUser.authentication
         .then((GoogleSignInAuthentication googleKey) => googleKey.idToken)
         .catchError((Object e) {
+      connected = false;
       throw e;
     });
 
@@ -45,8 +47,12 @@ class GoogleSignClient extends SignClient {
     
     _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account) {
       _currentUser = account;
+      connected = true;
     });
-    connected = true;
-    await _googleSignIn.signInSilently();
+    _currentUser = await _googleSignIn.signInSilently()
+        .then((GoogleSignInAccount gsa){
+          connected = true;
+          return _currentUser = gsa;
+    });
   }
 }
