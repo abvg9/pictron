@@ -13,8 +13,7 @@ class TaskCalendar extends StatefulWidget {
 
 class _TaskScreenState extends State<TaskCalendar> {
 
-  _TaskScreenState({TaskTransfer task})
-      :
+  _TaskScreenState({TaskTransfer task}):
         _st = task,
         _imageUrl = task.pag[task.currentP].imageUrl;
 
@@ -26,6 +25,10 @@ class _TaskScreenState extends State<TaskCalendar> {
   Widget build(BuildContext context) =>
       MaterialApp(
         title: 'PictoTEAsk',
+        theme: ThemeData(
+          //primarySwatch: Colors.cyan,
+          canvasColor: Colors.cyanAccent[100],
+        ),
         home: Scaffold(
           appBar: AppBar(
             title: Text('Tareas por Dia: ${_st.names}'),
