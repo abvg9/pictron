@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 import 'package:pictron/src/controllers/main_controller.dart';
+import 'package:pictron/src/screens/calendar.dart';
 import 'package:pictron/src/screens/test_screen.dart';
 
 class App extends AppMVC {
@@ -14,10 +15,10 @@ class App extends AppMVC {
 
   @override
   Widget build(BuildContext context) => _app = MaterialApp(
-        title: 'Pictron',
+        title: 'PictoTEAsk',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: TestScreen(),
+        home: TaskCalendar(),
       );
 }
