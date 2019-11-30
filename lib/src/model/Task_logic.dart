@@ -17,9 +17,9 @@ static TaskLogic get TaskL => _this;
 TaskTransfer loadTask(int id) =>
     TaskTransfer(id: id, name: 'Prueba',
         list: <TaskPageTransfer>[
-          TaskPageTransfer(id: 0, url: 'http://www.arasaac.org/temp/tmp85dn9f_9700.png'),
+          TaskPageTransfer(id: 0, url: 'http://www.arasaac.org/classes/img/thumbnail.php?i=c2l6ZT0zMDAmcnV0YT0uLi8uLi9yZXBvc2l0b3Jpby9vcmlnaW5hbGVzLzI2MTcucG5n'),
           TaskPageTransfer(id: 1,
-              url: 'http://www.arasaac.org/temp/tmpaH4SM4_9.png'),
-          TaskPageTransfer(id: 2, url: 'http://www.arasaac.org/temp/tmpmuz365_1433.png')]
+              url: 'http://www.arasaac.org/temp/9574114363242_4578.png'),
+          TaskPageTransfer(id: 2, url: 'http://www.arasaac.org/temp/9574114363242_4578.png')]
     );
 }

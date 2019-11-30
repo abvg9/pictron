@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 import 'package:pictron/src/controllers/main_controller.dart';
-import 'package:pictron/src/screens/calendar.dart';
+import 'package:pictron/src/screens/calendario_inicio.dart';
 import 'package:pictron/src/screens/test_screen.dart';
 
 class App extends AppMVC {
@@ -19,6 +19,6 @@ class App extends AppMVC {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: TaskCalendar(),
+        home: TaskCalendar2(),
       );
 }
