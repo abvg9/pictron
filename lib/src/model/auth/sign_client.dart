@@ -1,14 +1,41 @@
+class AuthError implements Exception {
+
+  AuthError(String service) {
+    _service = service;
+  }
+
+  String _service;
+
+  @override
+  String toString() => '$_service no responde, vuelve a inentarlo más tarde.';
+}
+
+class InvalidCredentials implements Exception {
+
+  InvalidCredentials(String service) {
+    _service = service;
+  }
+
+  String _service;
+
+  @override
+  String toString() => 'Usuario o contraseña de $_service incorrectos.';
+}
+
 abstract class SignClient {
-  String token;
-  bool connected;
+
+  String _apiToken;
 
   Future<void> handleSignIn();
   Future<void> handleSignOut();
 
-  String getToken() {
-    print(token);
-    return token;
+  Future<String> getToken();
+  Future<bool> isConnected();
+
+  void setAPIToken(String token){
+    _apiToken = token;
   }
 
-  bool isConnected() => connected;
+  String getAPIToken() => _apiToken;
+  
 }

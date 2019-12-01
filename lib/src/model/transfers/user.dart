@@ -1,25 +1,22 @@
+import 'children.dart';
+import 'children_group.dart';
+
 class User {
-  User(String id, String email, String name, String surname) {
+  User(String id, List<Children> children, List<ChildrenGroup> childrenGroups) {
     _id = id;
-    _email = email;
-    _name = name;
-    _surname = surname;
+    _children = children;
+    _childrenGroups = childrenGroups;
   }
 
   User.map(dynamic obj) {
     _id = obj['id_tutor'].toString();
-    _email = obj['email'].toString();
-    _name = obj['nombre'].toString();
-    _surname = obj['apellido'].toString();
   }
 
   String _id;
-  String _email;
-  String _name;
-  String _surname;
+  List<Children> _children;
+  List<ChildrenGroup> _childrenGroups;
 
   String getId() => _id;
-  String getEmail() => _email;
-  String getName() => _name;
-  String getSurname() => _surname;
+  List<Children> getChildren() => _children;
+  List<ChildrenGroup> getChildrenGroups() => _childrenGroups;
 }

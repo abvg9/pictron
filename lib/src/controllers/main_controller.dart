@@ -18,27 +18,35 @@ class Con extends ControllerMVC {
 
   SignClient signInClient;
 
-  Future<void> signIn(String email, String pass) async {
-    final SignInDao signInDao = SignInDao();
+  final SignInDao _signInDao = SignInDao();
 
-    await signInDao.login(email, pass).then((User u) {
-      model = u;
-    }).catchError((Object e) => throw e);
+  Future<void> signIn(String email, String pass) async {
+    await _signInDao.login(email, pass).catchError((Object e) => throw e);
+    // Now we need to send to the API our given token.
   }
 
   Future<void> signInAuth(SignClient signClient) async {
 
     signInClient = signClient;
 
-    await signInClient.handleSignIn().catchError((Object e) => throw e);
+    try {
 
-    signClient.getToken();
+      // If user is signed in we sign out.
+      if (await signClient.isConnected().then((bool con) => con)) {
+        await signClient.handleSignOut();
+      }
 
-    //final SignInDao signInDao = SignInDao();
+      await signInClient.handleSignIn();
 
-    //await signInDao.loginAuth(signClient.getToken()).then((User u) {
-    //model = u;
-    //}).catchError((Object e) => throw e);
+      //final SignInDao signInDao = SignInDao();
+
+      //await signInDao.loginAuth(signClient.getToken()).then((User u) {
+      //model = u;
+      //}).catchError((Object e) => throw e);
+      
+    }catch (e) {
+      rethrow;
+    }
   }
 
   Future<void> signOutAuth() async {
