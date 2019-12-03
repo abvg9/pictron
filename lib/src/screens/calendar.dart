@@ -10,6 +10,7 @@ class Calendar extends StatelessWidget {
       MaterialApp(
         title: 'PictoTEAsk',
         theme: ThemeData(
+          //primarySwatch: Colors.cyan,
           canvasColor: Colors.cyanAccent[100],
 
         ),
@@ -31,13 +32,18 @@ class Calendar extends StatelessWidget {
                       // ignore: sort_child_properties_last
                       child:Hero( tag: 'calendario1',
                         child: Column(
+
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Expanded(
-                              flex:2,
+                              flex:5,
 
                               child: Container(
-
+                                margin: EdgeInsets.all(100.0),
+                                padding: EdgeInsets.all(10.0),
+                                alignment: Alignment.topCenter,
+                                width: 200,
+                                height: 100,
                                 decoration: BoxDecoration(
                                   image:   DecorationImage(image:  NetworkImage(
 
@@ -75,14 +81,18 @@ class Calendar extends StatelessWidget {
                       // ignore: sort_child_properties_last
                       child:Hero( tag: 'calendario2',
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             Expanded(
-                              flex:2,
+                              flex:5,
                               child:
                               Container(
-                                alignment: Alignment.topLeft,
-                                height: 300,
+                                margin: EdgeInsets.all(100.0),
+                                padding: EdgeInsets.all(10.0),
+                                alignment: Alignment.topCenter,
+                                width: 200,
+                                height: 100,
 
                                 decoration: BoxDecoration(
                                   image:   DecorationImage(image:  NetworkImage(
@@ -124,13 +134,17 @@ class Calendar extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Expanded(
-                              flex:2,
+                              flex:5,
                               child:
                               Container(
-                                alignment: Alignment.topLeft,
-                                height: 300,
+                                margin: EdgeInsets.all(100.0),
+                                padding: EdgeInsets.all(10.0),
+                                alignment: Alignment.topCenter,
+                                width: 200,
+                                height: 100,
 
                                 decoration: BoxDecoration(
+
                                   image:   DecorationImage(image:  NetworkImage(
 
                                       "http://2.bp.blogspot.com/-a2KS5eX6Do0/VD-qqeBnWVI/AAAAAAAAAdA/uXuRTcTdIOE/s1600/cuento.png")),
@@ -146,6 +160,9 @@ class Calendar extends StatelessWidget {
                           ],
                         ),
                       ),
+
+
+
 
                       onTap: () {
                         // Navigator.push(context, MaterialPageRoute(builder: (_) {
