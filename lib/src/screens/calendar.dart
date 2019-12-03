@@ -10,7 +10,6 @@ class Calendar extends StatelessWidget {
       MaterialApp(
         title: 'PictoTEAsk',
         theme: ThemeData(
-          //primarySwatch: Colors.cyan,
           canvasColor: Colors.cyanAccent[100],
 
         ),
