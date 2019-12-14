@@ -1,12 +1,19 @@
-class Children {
-  Children(String name, String id) {
-    _name = name;
-    _id = id;
-  }
 
-  String _name;
-  String _id;
+import 'package:flutter/cupertino.dart';
 
-  String getName() => _name;
-  String getId() => _id;
+class Child {
+
+  Child({@required this.nick, @required this.id});
+
+  factory Child.fromJson(dynamic json) =>
+      Child(
+          id : json['id_kid'].toString(),
+          nick : json['nick'].toString()
+      );
+
+  String nick;
+  String id;
+
+  String getNick() => nick;
+  String getId() => id;
 }

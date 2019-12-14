@@ -1,14 +1,19 @@
 import 'children.dart';
 
 class ChildrenGroup {
-  ChildrenGroup(String groupName, List<Children> childrenList) {
-    _groupName = groupName;
-    _childrenList = childrenList;
+
+  ChildrenGroup({this.groupName, this.childrenList, this.id});
+
+  ChildrenGroup.fromJson(dynamic json){
+    id = json['id_group'].toString();
+    groupName = json['nombre'].toString();
   }
 
-  String _groupName;
-  List<Children> _childrenList;
+  String groupName;
+  String id;
+  List<Child> childrenList;
 
-  String getGroupName() => _groupName;
-  List<Children> getChildren() => _childrenList;
+  String getId() => id;
+  String getGroupName() => groupName;
+  List<Child> getChildren() => childrenList;
 }

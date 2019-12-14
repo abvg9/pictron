@@ -9,7 +9,6 @@ class GoogleSignClient extends SignClient {
         'email',
       ],
     );
-    _initialize();
   }
 
   GoogleSignInAccount _currentUser;
@@ -25,24 +24,8 @@ class GoogleSignClient extends SignClient {
   @override
   Future<void> handleSignOut() async {
     await _googleSignIn.disconnect().catchError((Object e) {
-      throw AuthError('Google');;
+      throw AuthError('Google');
     });
-  }
-
-  Future<void> _initialize() async {
-    /*
-    _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account) {
-      _currentUser = account;
-      connected = true;
-    });
-    */
-    /*
-    _currentUser =
-        await _googleSignIn.signInSilently().then((GoogleSignInAccount gsa) {
-      connected = true;
-      return _currentUser = gsa;
-    });
-     */
   }
 
   @override

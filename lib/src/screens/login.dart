@@ -20,6 +20,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
   _LoginPageState() {
     _emailErrorMessage = '';
     _passwordErrorMessage = '';
@@ -47,37 +48,15 @@ class _LoginPageState extends State<LoginPage> {
   ProgressDialog _pr;
 
   FacebookSignClient _facebookSignClient;
-
   GoogleSignClient _googleSignClient;
 
   Future<void> _checkAuthLogin(SignClient signClient) async {
-    // Send a petition to the API.
-    // API will return a list of children's and a list of groups.
 
     await _controller.signInAuth(signClient);
     if (await _controller.signInClient.isConnected().then((bool con) => con)) {
       setState(() {
-        final Children harry = Children('HarryPotter86', '1');
-
-        final Children hermione = Children('HermioneGrangerSuper', '2');
-
-        final List<Children> children = <Children>[
-          harry,
-          hermione,
-          harry,
-          hermione,
-          harry,
-        ];
-
-        final ChildrenGroup group1 =
-            ChildrenGroup('Primer ciclo primaria', children);
-
-        final ChildrenGroup group2 =
-            ChildrenGroup('Segundo ciclo primaria', children);
-
-        final List<ChildrenGroup> groups = <ChildrenGroup>[group1, group2];
-
-        _goToChildViewList(children, groups);
+        // TO-DO
+        //_goToChildViewList(children, groups);
       });
     }
   }
@@ -105,29 +84,9 @@ class _LoginPageState extends State<LoginPage> {
         // API will return a list of children's and a list of groups.
         await _controller.signIn(user, pass);
         setState(() {
-          _emailErrorMessage = '';
           _pr.hide();
-          final Children harry = Children('HarryPotter86', '1');
-
-          final Children hermione = Children('HermioneGrangerSuper', '2');
-
-          final List<Children> children = <Children>[
-            harry,
-            hermione,
-            harry,
-            hermione,
-            harry,
-          ];
-
-          final ChildrenGroup group1 =
-              ChildrenGroup('Primer ciclo primaria', children);
-
-          final ChildrenGroup group2 =
-              ChildrenGroup('Segundo ciclo primaria', children);
-
-          final List<ChildrenGroup> groups = <ChildrenGroup>[group1, group2];
-
-          _goToChildViewList(children, groups);
+          _goToChildViewList(_controller.getUser().getChildren(),
+              _controller.getUser().getChildrenGroups());
         });
       } catch (e) {
         setState(() {
@@ -140,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  void _goToChildViewList(List<Children> children, List<ChildrenGroup> groups) {
+  void _goToChildViewList(List<Child> children, List<ChildrenGroup> groups) {
     Navigator.push(
       context,
       MaterialPageRoute<dynamic>(
@@ -245,7 +204,7 @@ class _LoginPageState extends State<LoginPage> {
                 onPressed: _checkFields,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
-                    side: BorderSide(color: Colors.white)),
+                    side: const BorderSide(color: Colors.white)),
                 child: const Text('INICIAR SESIÓN',
                     style: TextStyle(color: Colors.white)),
               ),
@@ -287,7 +246,7 @@ class _LoginPageState extends State<LoginPage> {
                 padding: const EdgeInsets.only(right: 10),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
-                    side: BorderSide(color: Colors.white)),
+                    side: const BorderSide(color: Colors.white)),
               )
             ],
           ),
@@ -304,7 +263,7 @@ class _LoginPageState extends State<LoginPage> {
                 },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
-                    side: BorderSide(color: Colors.white)),
+                    side: const BorderSide(color: Colors.white)),
               )
             ],
           )

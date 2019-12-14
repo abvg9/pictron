@@ -35,6 +35,10 @@ class Dao {
         final String res = response.body;
         final int statusCode = response.statusCode;
 
+        if (statusCode < 200 || statusCode > 400 || json == null) {
+          throw EmptyResponse();
+        }
+
         return decoder.convert(res);
       });
 }

@@ -9,12 +9,12 @@ class ChildList extends StatefulWidget {
   @override
   _ChildListState createState() => _ChildListState(children, childrenGroups);
 
-  final List<Children> children;
+  final List<Child> children;
   final List<ChildrenGroup> childrenGroups;
 }
 
 class _ChildListState extends State<ChildList> {
-  _ChildListState(List<Children> children, List<ChildrenGroup> childrenGroups) {
+  _ChildListState(List<Child> children, List<ChildrenGroup> childrenGroups) {
     _children = _loadChildren(children);
     _groups = _loadGroups(childrenGroups);
     _selectedList = false;
@@ -28,7 +28,7 @@ class _ChildListState extends State<ChildList> {
 
   bool _selectedList = false;
 
-  ListView _loadChildren(List<Children> children) => ListView.builder(
+  ListView _loadChildren(List<Child> children) => ListView.builder(
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
         itemCount: children.length,
@@ -57,7 +57,7 @@ class _ChildListState extends State<ChildList> {
                 Column(
                   children: <Widget>[
                     Text(
-                      children[index].getName(),
+                      children[index].getNick(),
                       style: const TextStyle(fontSize: 20),
                     )
                   ],
@@ -73,9 +73,6 @@ class _ChildListState extends State<ChildList> {
       itemBuilder: (BuildContext c, int index) => Padding(
           padding: const EdgeInsets.all(10),
           child: GestureDetector(
-            onTap: () {
-              // Open the calendar associated with this group.
-            },
             child: Column(
               children: <Widget>[
                 Row(
