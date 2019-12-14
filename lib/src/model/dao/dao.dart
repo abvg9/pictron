@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:http/http.dart' as http;
 
 class EmptyResponse implements Exception {
@@ -9,32 +8,27 @@ class EmptyResponse implements Exception {
 
 class Dao {
   Dao() {
-    urlAPI = 'https://www.tea-helper.es/api';
+    urlAPI = 'https://pictoteask.000webhostapp.com';
     decoder = const JsonDecoder();
   }
 
   String urlAPI;
   JsonDecoder decoder;
 
-  Future<HttpClientResponse> post(String url,
+  Future<dynamic> post(String url,
       {Map<String, String> headers,
-      Map<String, String> body,
-      Encoding encoding}) async {
-    final HttpClient httpClient = HttpClient();
+        Map<String, String> body,
+        Encoding encoding}) => http
+      .post(url, body: body, headers: headers, encoding: encoding)
+      .then((http.Response response) {
+    final String res = response.body;
+    final int statusCode = response.statusCode;
 
-    final HttpClientRequest request =
-        await httpClient.postUrl(Uri.parse(url)).catchError((Object e) {});
-
-    // Add headers.
-    headers.forEach((String key, String value) {
-      request.headers.set(key, value);
-    });
-
-    // Add body.
-    request.add(utf8.encode(json.encode(body)));
-
-    return request.close();
-  }
+    if (statusCode < 200 || statusCode > 400 || json == null) {
+      throw EmptyResponse();
+    }
+    return decoder.convert(res);
+  });
 
   Future<dynamic> get(String url) =>
       http.get(url).then((http.Response response) {
