@@ -70,6 +70,7 @@ class _StoryScreenState extends State<StoryScreen> {
         Expanded(child: Container())
       ],
       ),
+      backgroundColor: const Color(0xffbcfaff),
     ),
   );
 
