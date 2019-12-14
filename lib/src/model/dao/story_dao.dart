@@ -11,14 +11,12 @@ class StoryDao {
   static const String _url = '$_rootUrl/getPagesStory.php';
 
   Future<StoryTransfer> getStory(int id) async {
-    List<StoryPageTransfer> pages;
-    List<int> pIds;
-    await _getStoryPost(id).then((List<int> ids){
-      pIds = ids;
-      for(final int id in pIds){
-        _getPagePost(id).then((StoryPageTransfer p){pages.add(p);});
-      }
-    });
+    final List<StoryPageTransfer> pages = <StoryPageTransfer>[];
+    final List<int> pIds = await _getStoryPost(id);
+
+    for(final int id in pIds){
+      pages.add(await _getPagePost(id));
+    }
 
     return Future<StoryTransfer>
         .value(StoryTransfer(id: id, name: '', list: pages));
@@ -33,14 +31,14 @@ class StoryDao {
             Exception(res['error_msg'].toString());
     }
     final List<String> pages = res['pages'].toString()
-        .replaceAll(RegExp('[]'), '')
+        .replaceAll('[', '')
+        .replaceAll(']', '')
         .split(', ');
-
-    List<int> ids;
+    final List<int> ids = <int>[];
     for (final String page in pages){
-      print(page);
       ids.add(int.parse(page));
     }
+
     return ids;
   }
 
@@ -53,7 +51,7 @@ class StoryDao {
       Exception(res['error_msg'].toString());
     }
 
-    final String path = res['path'].toString();
+    final String path = res['page']['path'].toString();
     return StoryPageTransfer(id: pageId, url: _rootUrl + path);
   }
 }

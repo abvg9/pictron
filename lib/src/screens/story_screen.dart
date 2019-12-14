@@ -31,7 +31,6 @@ class _StoryScreenState extends State<StoryScreen> {
   void initState() {
     super.initState();
     Con.con.getStory().then((StoryTransfer story){
-      print('\n\nkkkkk\n\n');
       setState(() {
         _st = story;
         _imageUrl = _st.pages[_st.currentP].imageUrl;
