@@ -14,10 +14,10 @@ class Con extends ControllerMVC {
 
   static Con _this;
 
-  // For easy access in the application
+  // For easy application access
   static Con get con => _this;
 
   static final StoryLogic _storyLogic = StoryLogic();
 
-   StoryTransfer getStory() => _storyLogic.loadStory(0);
+  Future<StoryTransfer> getStory() => _storyLogic.loadStory();
 }
