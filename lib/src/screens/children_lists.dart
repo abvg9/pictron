@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:pictron/src/model/transfers/activity.dart';
 import 'package:pictron/src/model/transfers/children.dart';
 import 'package:pictron/src/model/transfers/children_group.dart';
+import 'package:pictron/src/controllers/main_controller.dart';
+import 'package:pictron/src/screens/calendar.dart';
 
 class ChildList extends StatefulWidget {
   const ChildList({Key key, this.children, this.childrenGroups})
@@ -19,6 +22,7 @@ class _ChildListState extends State<ChildList> {
     _groups = _loadGroups(childrenGroups);
     _selectedList = false;
     _list = _children;
+    _controller = Con();
   }
 
   ListView _children;
@@ -27,6 +31,41 @@ class _ChildListState extends State<ChildList> {
   ListView _list;
 
   bool _selectedList = false;
+
+  Con _controller;
+
+  void _goToCalendar(List<Activity> activities) {
+    Navigator.push(
+      context,
+      MaterialPageRoute<dynamic>(
+          builder: (BuildContext context) => Calendar(activities: activities)),
+    );
+  }
+
+  Future<void> loadActivities(String id) async {
+    try {
+      _goToCalendar(await _controller.loadCalendar(id));
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  void _showDialog(String message) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+              title: const Text('Error'),
+              content: Text(message),
+              actions: <Widget>[
+                FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('Cerrar'),
+                ),
+              ],
+            ));
+  }
 
   ListView _loadChildren(List<Child> children) => ListView.builder(
         scrollDirection: Axis.vertical,
@@ -40,7 +79,13 @@ class _ChildListState extends State<ChildList> {
                   children: <Widget>[
                     GestureDetector(
                       //Opens the calendar of the child.
-                      onTap: () {},
+                      onTap: () async {
+                        try {
+                          await loadActivities(children[index].getId());
+                        } catch (e) {
+                          _showDialog(e.toString());
+                        }
+                      },
                       child: CircleAvatar(
                         backgroundColor: Colors.transparent,
                         radius: 40,

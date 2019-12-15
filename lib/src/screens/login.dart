@@ -53,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
     await _controller.signInAuth(signClient);
     if (await _controller.signInClient.isConnected().then((bool con) => con)) {
       setState(() {
-        // TO-DO
+        // TODO
         //_goToChildViewList(children, groups);
       });
     }

@@ -1,7 +1,9 @@
 import 'package:mvc_pattern/mvc_pattern.dart' show ControllerMVC;
 import 'package:pictron/src/model/auth/sign_client.dart';
+import 'package:pictron/src/model/dao/calendar_dao.dart';
 import 'package:pictron/src/model/dao/children_dao.dart';
 import 'package:pictron/src/model/dao/sign_in_dao.dart';
+import 'package:pictron/src/model/transfers/activity.dart';
 import 'package:pictron/src/model/transfers/user.dart';
 
 class Con extends ControllerMVC {
@@ -20,6 +22,7 @@ class Con extends ControllerMVC {
 
   final SignInDao _signInDao = SignInDao();
   final ChildrenDao _childrenDao = ChildrenDao();
+  final CalendarDao _calendarDao = CalendarDao();
 
   Future<void> signIn(String email, String pass) async {
     try {
@@ -53,6 +56,9 @@ class Con extends ControllerMVC {
   Future<void> signOutAuth() async {
     await signInClient.handleSignOut();
   }
+
+  Future<List<Activity>> loadCalendar(String id) async =>
+      _calendarDao.getActivities(id);
 
   User getUser() => _user;
 }
