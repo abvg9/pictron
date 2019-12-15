@@ -15,7 +15,6 @@ class SignInDao extends Dao {
   Future<String> login(String email, String password) =>
       post(_url, body: <String, String>{'email': email, 'password': password})
           .then((dynamic response) async {
-
         if (response == null) {
           throw EmptyResponse();
         }

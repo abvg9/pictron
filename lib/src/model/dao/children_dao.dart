@@ -50,7 +50,6 @@ class ChildrenDao extends Dao {
         'Nombre_grupo': idGroups[i].getGroupName(),
         'Tutor': id
       }).then((dynamic response) async {
-
         if (response == null) {
           throw EmptyResponse();
         }

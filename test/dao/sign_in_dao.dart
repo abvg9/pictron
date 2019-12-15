@@ -24,8 +24,8 @@ void isAValidPetition() {
       expect(ret, '7');
     });
 
-    expect(()  =>
-        signInDao.login(invalidEmail, invalidPassword), throwsException);
+    expect(
+        () => signInDao.login(invalidEmail, invalidPassword), throwsException);
   });
 }
 
