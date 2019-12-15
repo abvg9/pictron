@@ -55,4 +55,5 @@ class Con extends ControllerMVC {
   }
 
   User getUser() => _user;
+
 }
