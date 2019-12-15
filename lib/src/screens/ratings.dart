@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Ratings extends StatelessWidget {
+class ratings extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -56,48 +56,77 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      //appBar: AppBar(
-      // Here we take the value from the MyHomePage object that was created by
-      // the App.build method, and use it to set our appbar title.
-      // title: Text(widget.title),
-      //),
+
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'VALORACIONES TAREAS',
-            ),
-
-            TextFormField(
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText: 'Please enter a search term'
+        // in the middle of the parent
+        child: Container(
+          constraints: BoxConstraints(maxHeight: 540, maxWidth: 540),
+          padding: EdgeInsets.only(right: 40, left: 40),
+          decoration: BoxDecoration(
+              color: Colors.white, borderRadius: BorderRadius.circular(30)),
+          child: ListView(
+            children: <Widget>[
+              const Text('Valoración de actividad',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: 'KaushanScript',
+                  fontSize: 60,
+                ),
               ),
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(Icons.star, color: Colors.grey),
-                IconButton(Icons.star, color: Colors.grey),
-                IconButton(Icons.star, color: Colors.grey),
-                IconButton(Icons.star, color: Colors.grey),
-                IconButton(Icons.star, color: Colors.grey),
-              ],
-            )
+              const SizedBox(height: 30),
 
 
-          ],
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    //constraints: BoxConstraints(maxHeight: 540, maxWidth: 540),
+
+                    child: TextField(
+                      maxLines: 8,
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Escribe aqui'
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Icon(Icons.star, size: 48.0, color: Colors.grey),
+                  Icon(Icons.star, size: 48.0, color: Colors.grey),
+                  Icon(Icons.star, size: 48.0, color: Colors.grey),
+                  Icon(Icons.star, size: 48.0, color: Colors.grey),
+                  Icon(Icons.star, size: 48.0, color: Colors.grey),
+                ],
+              ),
+
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  MaterialButton(
+                    height: 35,
+                    minWidth: 225,
+                    color: Colors.blueAccent,
+                    onPressed: () {},
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        side: BorderSide(color: Colors.white)),
+                    child: const Text('GUARDAR',
+                        style: TextStyle(color: Colors.white)),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

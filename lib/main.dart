@@ -3,5 +3,5 @@ import 'package:pictron/src/app.dart';
 import 'package:pictron/src/screens/ratings.dart';
 
 void main() {
-  runApp(Ratings());
+  runApp(ratings());
 }
