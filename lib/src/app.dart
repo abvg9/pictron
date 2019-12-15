@@ -26,5 +26,4 @@ class App extends AppMVC {
       home: const LoginPage(),
     );
   }
-
 }

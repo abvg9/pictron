@@ -1,6 +1,13 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pictron/src/model/dao/sign_in_dao.dart';
 
+void main() {
+  group('Sign in dao tests', () {
+    isAValidPetition();
+    isAInvalidPetition();
+  });
+}
+
 void isAValidPetition() {
   test(
       'Sign in dao must detects that '
