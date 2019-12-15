@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import 'package:pictron/src/widget/arrow_button.dart';
 import 'package:pictron/src/controllers/main_controller.dart';
@@ -24,8 +23,7 @@ class _StoryScreenState extends State<StoryScreen> {
   VisibilityFlag _rightArrowVi = VisibilityFlag.visible;
   GestureTapCallback _firstSecretOnTap;
   GestureTapCallback _secondSecretOnTap;
-  int _firstCodeTaps = 0;
-  int _secondCodeTaps = 0;
+  PasswordTwoButtons password = PasswordTwoButtons();
 
   @override
   void initState() {
@@ -121,43 +119,12 @@ class _StoryScreenState extends State<StoryScreen> {
         VisibilityFlag.invisible : VisibilityFlag.visible;
 
         _firstSecretOnTap = _st.currentP == _st.pages.length-1 ?
-            (){tapSecretCode(id: 1);} : null;
+            (){password.tapSecretCode(id: 1);} : null;
 
         _secondSecretOnTap = _st.currentP == _st.pages.length-1 ?
-            (){tapSecretCode(id: 2);} : null;
+            (){password.tapSecretCode(id: 2);} : null;
 
-        _firstCodeTaps = 0;
-        _secondCodeTaps = 0;
+        password.resetCode();
       });
-    }
-
-    /// It's used to finish the story.
-    /// Secret code:
-    ///     1: 2 taps on the first(top/left) secret button
-    ///     2: 1 taps on the second(top/right) secret button
-    void tapSecretCode({int id}) {
-      if (id == 1){
-        if(_firstCodeTaps < 2){
-          _firstCodeTaps++;
-        }
-        else {
-          _firstCodeTaps = 0;
-          _secondCodeTaps = 0;
-        }
-      }
-      else if(id == 2){
-        if(_firstCodeTaps != 2){
-          _secondCodeTaps = 0;
-          _firstCodeTaps = 0;
-        }
-        else {
-          _secondCodeTaps++;
-        }
-      }
-
-      /// Code accepted
-      if(_firstCodeTaps == 2 && _secondCodeTaps == 1){
-        SystemChannels.platform.invokeMethod('SystemNavigator.pop');
-      }
     }
   }
