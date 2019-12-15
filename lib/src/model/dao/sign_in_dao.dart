@@ -1,5 +1,4 @@
 import 'package:pictron/src/model/dao/dao.dart';
-import 'package:pictron/src/model/transfers/user.dart';
 
 class _UnknownUser implements Exception {
   @override
@@ -13,13 +12,21 @@ class SignInDao extends Dao {
 
   String _url;
 
-  Future<User> login(String email, String password) =>
+  Future<String> login(String email, String password) =>
       post(_url, body: <String, String>{'email': email, 'password': password})
-          .then((dynamic res) {
-        if (res['error_msg'] != null) {
+          .then((dynamic response) async {
+        if (response == null) {
+          throw EmptyResponse();
+        }
+
+        if (response['error_msg'] != null) {
           throw _UnknownUser();
         }
 
-        return User.map(res['tutor']);
-      });
+        return response['tutor']['id_tutor'].toString();
+      }).catchError((Object e) => throw e);
+
+  void loginAuth(String token) {
+    // TO-DO
+  }
 }

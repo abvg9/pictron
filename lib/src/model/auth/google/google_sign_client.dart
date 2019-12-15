@@ -1,30 +1,42 @@
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:pictron/src/model/auth/sign_client.dart';
 
-class GoogleSignClient {
+class GoogleSignClient extends SignClient {
   GoogleSignClient() {
     _googleSignIn = GoogleSignIn(
       scopes: <String>[
         'email',
       ],
     );
-    _initialize();
   }
 
-  GoogleSignInAccount currentUser;
+  GoogleSignInAccount _currentUser;
   GoogleSignIn _googleSignIn;
 
+  @override
   Future<void> handleSignIn() async {
-    await _googleSignIn.signIn();
-  }
-
-  Future<void> handleSignOut() async {
-    await _googleSignIn.disconnect();
-  }
-
-  void _initialize() {
-    _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account) {
-      currentUser = account;
+    _currentUser = await _googleSignIn.signIn().catchError((Object e) {
+      throw AuthError('Google');
     });
-    _googleSignIn.signInSilently();
   }
+
+  @override
+  Future<void> handleSignOut() async {
+    await _googleSignIn.disconnect().catchError((Object e) {
+      throw AuthError('Google');
+    });
+  }
+
+  @override
+  Future<String> getToken() async => _currentUser.authentication
+          .then((GoogleSignInAuthentication googleKey) => googleKey.idToken)
+          .catchError((Object e) {
+        throw AuthError('Google');
+      });
+
+  @override
+  Future<bool> isConnected() =>
+      _googleSignIn.isSignedIn().then((bool con) => con).catchError((Object e) {
+        throw AuthError('Google');
+      });
 }

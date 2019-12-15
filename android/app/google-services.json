@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "687089891345",
+    "firebase_url": "https://pictron-99578.firebaseio.com",
+    "project_id": "pictron-99578",
+    "storage_bucket": "pictron-99578.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:687089891345:android:f95921dcf0b568f98ad9b0",
+        "android_client_info": {
+          "package_name": "com.example.pictron"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "687089891345-1u8h9ot1hnhtv3o9diddjg5l696lo753.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pictron",
+            "certificate_hash": "e4768b720638f4dbb723423d444237eea9541de8"
+          }
+        },
+        {
+          "client_id": "687089891345-ft3to7lp1qsh39me8jhs5qd4ivko3tuh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pictron",
+            "certificate_hash": "71a4eaec4d05d2920d5a7ad8df40a7796ce7d056"
+          }
+        },
+        {
+          "client_id": "687089891345-5n7t2h1ph6fupnar0lus336fcggrclta.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpbwWDB5CEDxaic0PgrNjmBfaMZLL9ANY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "687089891345-5n7t2h1ph6fupnar0lus336fcggrclta.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "687089891345-jovobm155lrt4i8dn86vm235iacjbo7f.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.pictron"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

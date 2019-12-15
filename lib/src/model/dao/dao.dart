@@ -1,26 +1,19 @@
-import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-class _EmptyResponse implements Exception {
+class EmptyResponse implements Exception {
   @override
-  String toString() => 'El Servicio no tiene respuesta.';
-}
-
-class _IllegalStatusCode implements Exception {
-  @override
-  String toString() => 'El Servicio esta fuera de servicio,'
-      ' vuelva a intertarlo más tarde.';
+  String toString() => 'El servidor no responde.';
 }
 
 class Dao {
   Dao() {
     urlAPI = 'https://pictoteask.000webhostapp.com';
-    _decoder = const JsonDecoder();
+    decoder = const JsonDecoder();
   }
 
   String urlAPI;
-  JsonDecoder _decoder;
+  JsonDecoder decoder;
 
   Future<dynamic> post(String url,
           {Map<String, String> headers,
@@ -32,12 +25,21 @@ class Dao {
         final String res = response.body;
         final int statusCode = response.statusCode;
 
-        if (json == null) {
-          throw _EmptyResponse();
-        } else if (statusCode < 200 || statusCode > 400) {
-          throw _IllegalStatusCode();
+        if (statusCode < 200 || statusCode > 400 || json == null) {
+          throw EmptyResponse();
+        }
+        return decoder.convert(res);
+      });
+
+  Future<dynamic> get(String url) =>
+      http.get(url).then((http.Response response) {
+        final String res = response.body;
+        final int statusCode = response.statusCode;
+
+        if (statusCode < 200 || statusCode > 400 || json == null) {
+          throw EmptyResponse();
         }
 
-        return _decoder.convert(res);
+        return decoder.convert(res);
       });
 }

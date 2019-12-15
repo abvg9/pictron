@@ -1,29 +1,20 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pictron/src/model/dao/sign_in_dao.dart';
-import 'package:pictron/src/model/transfers/user.dart';
-
-void main() {
-  group('Sign in dao tests', () {
-    isAValidPetition();
-    isAInvalidPetition();
-  });
-}
 
 void isAValidPetition() {
   test(
       'Sign in dao must detects that '
-      'the emails are in a correct format', () {
+      'the credentials are correct.', () {
     final SignInDao signInDao = SignInDao();
 
     const String invalidEmail = 'fakeEmail@hotmail.com';
-    const String validEmail = 'meco@gmail.com';
+    const String validEmail = 'aa@gmail.com';
 
     const String invalidPassword = 'ICWIENER';
-    const String validPassword = '1234asAS';
+    const String validPassword = 'Alberto123';
 
-    signInDao.login(validEmail, validPassword).then((User p) {
-      expect(p != null, true);
-      expect(p.getEmail(), validEmail);
+    signInDao.login(validEmail, validPassword).then((String ret) {
+      expect(ret, '7');
     });
 
     expect(
