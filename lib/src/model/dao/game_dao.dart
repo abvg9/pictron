@@ -6,7 +6,7 @@ class GameDao {
     final List<GamePageTransfer> pages = <GamePageTransfer>[];
     // ignore: cascade_invocations
     pages.add(GamePageTransfer(id: 1,
-      urlsP: <String>['https://carlisletheacarlisletheatre.org/images/clipart-food-kawaii-5.jpg',
+      urlsP: <String>['https://cdn0.iconfinder.com/data/icons/junk-food-emoji-set/100/Taco-512.png',
       'https://www.clipartbay.com/cliparts/free-food-clipart-hdbjteq.jpg',
       'https://clipartstation.com/wp-content/uploads/2018/09/fried-food-clipart.gif'],
       namesP: <String>['taco', 'sandwitch', 'fries'],
