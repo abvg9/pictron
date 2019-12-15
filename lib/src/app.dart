@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:pictron/src/controllers/main_controller.dart';
+import 'package:pictron/src/screens/login.dart';
 
 class App extends AppMVC {
   App({Key key}) : super(con: _controller, key: key);
@@ -22,7 +23,7 @@ class App extends AppMVC {
       theme: ThemeData(
         canvasColor: Colors.cyan[100],
       ),
-      //home: const LoginPage(),
+      home: const LoginPage(),
     );
   }
 }
