@@ -22,21 +22,17 @@ class Con extends ControllerMVC {
   final ChildrenDao _childrenDao = ChildrenDao();
 
   Future<void> signIn(String email, String pass) async {
-
     try {
-      final String id = await _signInDao
-          .login(email, pass);
+      final String id = await _signInDao.login(email, pass);
 
       _user = User(id, await _childrenDao.getChildren(id),
           await _childrenDao.getGroups(id));
-
     } catch (e) {
       rethrow;
     }
   }
 
   Future<void> signInAuth(SignClient signClient) async {
-
     signInClient = signClient;
 
     try {
@@ -59,5 +55,4 @@ class Con extends ControllerMVC {
   }
 
   User getUser() => _user;
-
 }

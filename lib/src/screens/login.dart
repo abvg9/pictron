@@ -20,7 +20,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   _LoginPageState() {
     _emailErrorMessage = '';
     _passwordErrorMessage = '';
@@ -51,7 +50,6 @@ class _LoginPageState extends State<LoginPage> {
   GoogleSignClient _googleSignClient;
 
   Future<void> _checkAuthLogin(SignClient signClient) async {
-
     await _controller.signInAuth(signClient);
     if (await _controller.signInClient.isConnected().then((bool con) => con)) {
       setState(() {

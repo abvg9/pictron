@@ -2,7 +2,6 @@ import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:pictron/src/model/auth/sign_client.dart';
 
 class FacebookSignClient extends SignClient {
-
   FacebookSignClient() {
     _facebookLogin = FacebookLogin();
   }
@@ -25,22 +24,19 @@ class FacebookSignClient extends SignClient {
       if (flr.status != FacebookLoginStatus.loggedIn) {
         throw InvalidCredentials('Facebook');
       }
-
     });
   }
 
   @override
-  Future<String> getToken() async =>
-      _facebookLogin.currentAccessToken
-        .then((FacebookAccessToken fat) => fat.token)
+  Future<String> getToken() async => _facebookLogin.currentAccessToken
+          .then((FacebookAccessToken fat) => fat.token)
           .catchError((Object e) {
-            throw AuthError('Facebook');
-          });
+        throw AuthError('Facebook');
+      });
 
   @override
   Future<bool> isConnected() =>
-      _facebookLogin.isLoggedIn.then((bool con) => con)
-          .catchError((Object e) {
-            throw AuthError('Facebook');
-          });
+      _facebookLogin.isLoggedIn.then((bool con) => con).catchError((Object e) {
+        throw AuthError('Facebook');
+      });
 }

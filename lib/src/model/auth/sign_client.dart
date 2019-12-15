@@ -1,5 +1,4 @@
 class AuthError implements Exception {
-
   AuthError(String service) {
     _service = service;
   }
@@ -11,7 +10,6 @@ class AuthError implements Exception {
 }
 
 class InvalidCredentials implements Exception {
-
   InvalidCredentials(String service) {
     _service = service;
   }
@@ -23,7 +21,6 @@ class InvalidCredentials implements Exception {
 }
 
 abstract class SignClient {
-
   String _apiToken;
 
   Future<void> handleSignIn();
@@ -32,10 +29,9 @@ abstract class SignClient {
   Future<String> getToken();
   Future<bool> isConnected();
 
-  void setAPIToken(String token){
+  void setAPIToken(String token) {
     _apiToken = token;
   }
 
   String getAPIToken() => _apiToken;
-  
 }

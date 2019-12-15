@@ -1,10 +1,9 @@
 import 'children.dart';
 
 class ChildrenGroup {
-
   ChildrenGroup({this.groupName, this.childrenList, this.id});
 
-  ChildrenGroup.fromJson(dynamic json){
+  ChildrenGroup.fromJson(dynamic json) {
     id = json['id_group'].toString();
     groupName = json['nombre'].toString();
   }
