@@ -43,7 +43,7 @@ class Con extends ControllerMVC {
 
       await signInClient.handleSignIn();
 
-      //TO-DO
+      //TODO
 
     } catch (e) {
       rethrow;
