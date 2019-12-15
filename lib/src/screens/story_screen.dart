@@ -66,7 +66,7 @@ class _StoryScreenState extends State<StoryScreen> {
                         onClickArrowB(isLeft: true);
                       }),
 
-                  Expanded(flex: 5, child: Image.network(_imageUrl)),
+                  Expanded(flex: 7, child: Image.network(_imageUrl)),
 
                   ArrowButton(left: false, height: _arrowHeight,
                       visibility: _rightArrowVi,

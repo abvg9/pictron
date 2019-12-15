@@ -5,15 +5,5 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:flutter_test/flutter_test.dart';
-import 'package:pictron/src/app.dart';
-
 void main() {
-  testWidgets('Test screen ', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(App());
-    assert(true);
-
-    //expect(find.text('Hello World'), findsOneWidget);
-  });
 }
