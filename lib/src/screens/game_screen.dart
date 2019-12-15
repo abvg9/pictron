@@ -54,7 +54,7 @@ class _GameScreenState extends State<GameScreen> {
                     Text(_currentPage.names[_currentPage.sol],
                         textAlign: TextAlign.center,
                         textScaleFactor: 5,
-                        style: TextStyle(fontWeight: FontWeight.bold)
+                        style: const TextStyle(fontWeight: FontWeight.bold)
                     )),
                   Column(children:
                     <Widget>[SecretButton(event: _secondSecretOnTap)])
