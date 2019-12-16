@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ratings extends StatelessWidget {
+class Ratings extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
