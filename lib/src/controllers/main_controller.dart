@@ -1,4 +1,9 @@
 import 'package:mvc_pattern/mvc_pattern.dart' show ControllerMVC;
+import 'package:pictron/src/model/logic/game_logic.dart';
+
+import 'package:pictron/src/model/logic/story_logic.dart';
+import 'package:pictron/src/model/transfers/game_transfer.dart';
+import 'package:pictron/src/model/transfers/story_transfer.dart';
 import 'package:pictron/src/model/auth/sign_client.dart';
 import 'package:pictron/src/model/dao/calendar_dao.dart';
 import 'package:pictron/src/model/dao/children_dao.dart';
@@ -7,14 +12,19 @@ import 'package:pictron/src/model/transfers/activity.dart';
 import 'package:pictron/src/model/transfers/user.dart';
 
 class Con extends ControllerMVC {
+
+  // Singelton
   factory Con() => _this ??= Con._();
 
   Con._();
 
   static Con _this;
 
-  // For easy access in the application
+  // For easy application access
   static Con get con => _this;
+
+  static final StoryLogic _storyLogic = StoryLogic();
+  static final GameLogic _gameLogic = GameLogic();
 
   static User _user;
 
@@ -23,6 +33,10 @@ class Con extends ControllerMVC {
   final SignInDao _signInDao = SignInDao();
   final ChildrenDao _childrenDao = ChildrenDao();
   final CalendarDao _calendarDao = CalendarDao();
+
+  Future<StoryTransfer> getStory() => _storyLogic.loadStory();
+
+  Future<GameTransfer> getGame() => _gameLogic.loadGame();
 
   Future<void> signIn(String email, String pass) async {
     try {
