@@ -3,88 +3,139 @@ import 'package:pictron/src/model/transfers/activity.dart';
 import 'package:pictron/src/controllers/main_controller.dart';
 
 class Calendar extends StatefulWidget {
-  const Calendar({Key key, this.activities}) : super(key: key);
+  const Calendar({Key key, this.activities, this.id, this.activitiesToShow})
+      : super(key: key);
 
   @override
-  _CalendarState createState() => _CalendarState();
+  _CalendarState createState() => _CalendarState(
+      activities: activities, id: id, activitiesToShow: activitiesToShow);
 
   final List<Activity> activities;
+  final List<Activity> activitiesToShow;
+  final String id;
 }
 
 class _CalendarState extends State<Calendar> {
-  _CalendarState({this.activities, this.controller});
+  _CalendarState({this.activities, this.id, this.activitiesToShow}) {
+    _controller = Con();
+    _activitiesList = _loadCalendar();
+  }
 
-  Con controller;
+  Con _controller;
   List<Activity> activities;
+  List<Activity> activitiesToShow;
+  String id;
+  ListView _activitiesList;
+
+  Future<bool> _updateList() async {
+    final List<Activity> activities = await _controller.loadCalendar(id);
+    final DateTime now = DateTime.now();
+    final List<Activity> pendingRemove = <Activity>[];
+    const Duration tenMinutes = Duration(minutes: 10);
+
+    // Discard last activities with a lapse of 10 minutes.
+    for (final Activity a in activities) {
+      if (a.getEnd().difference(now) <= tenMinutes) {
+        pendingRemove.add(a);
+      }
+    }
+
+    // Remove pending elements.
+    pendingRemove.forEach(activities.remove);
+
+    activitiesToShow.clear();
+    for (int i = 0; (i < 3) && (i < activities.length); i++) {
+      activitiesToShow.add(activities[i]);
+    }
+
+    return activitiesToShow.isEmpty;
+  }
+
+  void _showDialog() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+              title: const Text('Ups!'),
+              content:
+                  const Text('Este niño ya no tiene ninguna actividad más a lo'
+                      ' largo del día.'),
+              actions: <Widget>[
+                FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('Cerrar'),
+                ),
+              ],
+            ));
+  }
+
+  ListView _loadCalendar() => ListView.builder(
+        scrollDirection: Axis.horizontal,
+        shrinkWrap: true,
+        itemCount: activitiesToShow.length,
+        itemBuilder: (BuildContext c, int index) => Padding(
+            padding: const EdgeInsets.all(30),
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                  flex: 60,
+                  child: GestureDetector(
+                    onTap: () {
+                      // If the task has sub-tasks we need to show it.
+                      if (activitiesToShow[index]
+                          .getSubActivities()
+                          .isNotEmpty) {}
+                    },
+                    child: Container(
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image:
+                              NetworkImage(activitiesToShow[index].getUrlImg()),
+                        )),
+                        child: Text(activitiesToShow[index].getTitle())),
+                  ),
+                ),
+              ],
+            )),
+      );
 
   @override
-  Widget build(BuildContext context) {
-    final Widget container = Container(
-      constraints: const BoxConstraints(maxHeight: 540, maxWidth: 540),
-      padding: const EdgeInsets.only(right: 40, left: 40),
-      decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(30)),
-      child: ListView(
-        children: <Widget>[
-          const Text('Inicio de sesión',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: 'KaushanScript',
-                fontSize: 60,
-              )),
-          const SizedBox(height: 30),
-          Container(
-            child: Row(children: const <Widget>[
-              Text(
-                'Email',
-                textAlign: TextAlign.left,
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ]),
-          ),
-          const SizedBox(height: 10),
-          Container(
-            child: Row(
-              children: const <Widget>[
-                Text(
-                  'Contraseña',
-                  textAlign: TextAlign.left,
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                )
+  Widget build(BuildContext context) => Scaffold(
+      body: Center(
+        child: Row(
+          children: <Widget>[
+            const SizedBox(height: 80),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Ink(
+                  decoration: const ShapeDecoration(
+                    color: Colors.transparent,
+                    shape: CircleBorder(),
+                  ),
+                  child: IconButton(
+                    icon: Icon(Icons.refresh),
+                    color: Colors.black,
+                    iconSize: 80,
+                    onPressed: () async {
+                      await _updateList().then((bool ret) {
+                        if (!ret) {
+                          _showDialog();
+                          Navigator.pop(this.context, true);
+                        }
+                      });
+                    },
+                  ),
+                ),
               ],
             ),
-          ),
-          const SizedBox(height: 10),
-          Row(
-            children: <Widget>[
-              Expanded(
-                child: Container(
-                  margin: const EdgeInsets.only(left: 100, right: 10),
-                  child: Divider(
-                    color: Colors.black,
-                    height: 10,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 40),
-              const Text('o'),
-              Expanded(
-                child: Container(
-                  margin: const EdgeInsets.only(left: 10, right: 100),
-                  child: Divider(
-                    color: Colors.black,
-                    height: 10,
-                  ),
-                ),
-              )
-            ],
-          ),
-          const SizedBox(height: 5),
-        ],
-      ),
-    );
-    return Scaffold(
-      body: Center(child: container),
-    );
-  }
+            Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  _activitiesList,
+                ]),
+          ],
+        ),
+      ));
 }

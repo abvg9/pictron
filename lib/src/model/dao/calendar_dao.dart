@@ -4,7 +4,7 @@ import 'package:pictron/src/model/transfers/activity.dart';
 
 class _EmptyActivityList implements Exception {
   @override
-  String toString() => 'El niño no tiene ninguna tarea para hoy,'
+  String toString() => 'El niño no tiene ninguna tarea para hoy, '
       'si deseas añadirle tareas accede a la web para añadirselas.';
 }
 
@@ -19,7 +19,7 @@ class CalendarDao extends Dao {
 
   Future<List<Activity>> getActivities(String id) =>
       post(_urlActivities, body: <String, String>{
-        'date': DateFormat('yyyy-MM-dd').format(DateTime.now()),
+        'date': DateFormat('yyyy-MM-dd').format(DateTime.now()).toString(),
         'id_nino': id
       }).then((dynamic response) async {
         if (response == null) {
@@ -29,7 +29,7 @@ class CalendarDao extends Dao {
         final List<dynamic> activityList = response['Tareas'] as List<dynamic>;
 
         final List<Activity> activities = activityList
-            .map<Activity>((dynamic json) => Activity.fromJson(json))
+            .map<Activity>((dynamic json) => Activity.fromJson(json, urlAPI))
             .toList();
 
         if (activities.isEmpty) {
@@ -54,7 +54,8 @@ class CalendarDao extends Dao {
             response['subtareas'] as List<dynamic>;
 
         return activityList
-            .map<Activity>((dynamic json) => Activity.subActivityFromJson(json))
+            .map<Activity>(
+                (dynamic json) => Activity.subActivityFromJson(json, urlAPI))
             .toList();
       }).catchError((Object e) => throw e);
 }

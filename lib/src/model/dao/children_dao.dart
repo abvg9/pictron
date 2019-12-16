@@ -46,7 +46,8 @@ class ChildrenDao extends Dao {
         await _getIdGroups(id).catchError((Object e) => throw e);
 
     for (int i = 0; i < idGroups.length; i++) {
-      idGroups[i].childrenList = await post(_urlGroups, body: <String, String>{
+      idGroups[i].childrenList =
+      await post(_urlGroups, body: <String, String>{
         'Nombre_grupo': idGroups[i].getGroupName(),
         'Tutor': id
       }).then((dynamic response) async {
