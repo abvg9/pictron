@@ -29,7 +29,7 @@ class _CalendarState extends State<Calendar> {
   ListView _activitiesList;
 
   Future<bool> _updateList() async {
-    //activities = await _controller.loadCalendar(id);
+    activities = await Con.con.loadCalendar(id);
     final DateTime now = DateTime.now();
     final List<Activity> pendingRemove = <Activity>[];
     const Duration tenMinutes = Duration(minutes: 10);
@@ -87,7 +87,7 @@ class _CalendarState extends State<Calendar> {
   }
 
   void _goToStory(String id) {
-    
+
     Navigator.push(
       context,
       MaterialPageRoute<dynamic>(
