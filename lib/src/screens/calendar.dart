@@ -29,7 +29,7 @@ class _CalendarState extends State<Calendar> {
   ListView _activitiesList;
 
   Future<bool> _updateList() async {
-    final List<Activity> activities = await _controller.loadCalendar(id);
+    activities = await _controller.loadCalendar(id);
     final DateTime now = DateTime.now();
     final List<Activity> pendingRemove = <Activity>[];
     const Duration tenMinutes = Duration(minutes: 10);
@@ -133,11 +133,11 @@ class _CalendarState extends State<Calendar> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-          body: Center(
+      body: Center(
         child: Column(
           children: <Widget>[
             const SizedBox(height: 40),
-            Row(
+            Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Ink(

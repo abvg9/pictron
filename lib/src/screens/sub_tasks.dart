@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:pictron/src/model/transfers/activity.dart';
 import 'package:pictron/src/widget/arrow_button.dart';
 import 'package:pictron/src/widget/visibility.dart';
@@ -53,12 +54,12 @@ class _SubTasksState extends State<SubTasks> {
       if (_index == 0) {
         return;
       }
-      incr = -2;
+      incr = -3;
     } else {
       if (_index == activities.length - 1) {
         return;
       }
-      incr = 2;
+      incr = 3;
     }
 
     _index += incr;
@@ -95,56 +96,62 @@ class _SubTasksState extends State<SubTasks> {
   }
 
   ListView _loadCalendar() => ListView.builder(
-        scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
-        itemCount: activitiesToShow.length,
-        itemBuilder: (BuildContext c, int index) =>
-            Column(
-              children: <Widget>[
-                Expanded(
-                  flex: 0,
-                  child: Row(
-                    children: <Widget>[
-                      ArrowButton(
-                          height: 20,
-                          visibility: _leftArrowVi,
-                          event: () {
-                            onClickArrowB(isLeft: true);
-                          }),
-                      GestureDetector(
-                          onTap: () {
-                            // If the task has sub-tasks we need to show it.
-                            if (activitiesToShow[index]
-                                .getSubActivities()
+      scrollDirection: Axis.horizontal,
+      shrinkWrap: true,
+      itemCount: activitiesToShow.length,
+      itemBuilder: (BuildContext c, int index) =>
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Flexible(
+                flex: 10,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    /*
+                    ArrowButton(
+                        height: 20,
+                        visibility: _leftArrowVi,
+                        event: () {
+                          onClickArrowB(isLeft: true);
+                        }),
+                     */
+                    GestureDetector(
+                        onTap: () {
+                          // If the task has sub-tasks we need to show it.
+                            if (activitiesToShow[index].getSubActivities()
                                 .isNotEmpty) {}
-                          },
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Container(
-                                height: (MediaQuery.of(context).size.height /
-                                        activitiesToShow.length) - 20,
-                                width: (MediaQuery.of(context).size.width /
-                                        activitiesToShow.length) - 20,
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: NetworkImage(
-                                            activitiesToShow[index]
-                                                .getUrlImg()))),
-                              ),
-                              const SizedBox(height: 10),
-                              Text(activitiesToShow[index].getTitle(),
-                                  style: TextStyle(
-                                      fontSize: 40, color: Colors.black)),
-                            ],
-                          )),
-                      ArrowButton(
-                          left: false,
-                          height: 20,
-                          visibility: _rightArrowVi,
-                          event: () {
-                            onClickArrowB(isLeft: false);
-                          }),
+                            },
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                              height: (MediaQuery.of(context).size.height /
+                                        activitiesToShow.length) - 50,
+                              width: (MediaQuery.of(context).size.width /
+                                        activitiesToShow.length) - 50,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: NetworkImage(
+                                          activitiesToShow[index]
+                                              .getUrlImg()))),
+                            ),
+                            const SizedBox(height: 10),
+                            Text(activitiesToShow[index].getTitle(),
+                                style: TextStyle(
+                                    fontSize: 40, color: Colors.black)),
+                          ],
+                        )),
+                    /*
+                    ArrowButton(
+                        left: false,
+                        height: 20,
+                        visibility: _rightArrowVi,
+                        event: () {
+                          onClickArrowB(isLeft: false);
+                        }),
+                     */
                     ],
                   ),
                 ),
@@ -155,19 +162,31 @@ class _SubTasksState extends State<SubTasks> {
   Widget build(BuildContext context) => Scaffold(
       body: Center(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Expanded(
+            /*
+            Flexible(
                 child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Column(
-                  children: <Widget>[SecretButton(event: _firstSecretOnTap)],
-                ),
-                Column(
-                  children: <Widget>[SecretButton(event: _secondSecretOnTap)],
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        SecretButton(event: _firstSecretOnTap)
+                      ],
+                    ),
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        SecretButton(event: _secondSecretOnTap)
+                      ],
+                    )
+                  ],
                 )
-              ],
-            )),
+            ),
+
+             */
             Flexible(
               child: _activitiesList,
             ),
