@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert' as convert;
-import 'package:http/http.dart';
 import 'package:pictron/src/model/dao/dao.dart';
 import 'package:pictron/src/model/transfers/story_transfer.dart';
 import 'package:pictron/src/model/transfers/story_page_transfer.dart';
@@ -25,10 +24,9 @@ class StoryDao extends Dao {
   }
 
   Future<List<int>> _getStoryPost(int storyId) async {
-    final Response response = await post(_url,
+    final dynamic res = await post(_url,
         body: <String, String>{'id_cuento': storyId.toString()});
 
-    final dynamic res = convert.jsonDecode(response.body);
     if (res['error'].toString() == 'true') {
       Exception(res['error_msg'].toString());
     }
@@ -46,10 +44,9 @@ class StoryDao extends Dao {
   }
 
   Future<StoryPageTransfer> _getPagePost(int pageId) async {
-    final Response response = await post(_url,
+    
+    final dynamic res = await post(_url,
         body: <String, String>{'id_pagina': pageId.toString()});
-
-    final dynamic res = convert.jsonDecode(response.body);
     if (res['error'].toString() == 'true') {
       Exception(res['error_msg'].toString());
     }
