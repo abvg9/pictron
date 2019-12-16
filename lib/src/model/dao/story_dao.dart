@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert' as convert;
 import 'package:pictron/src/model/dao/dao.dart';
 import 'package:pictron/src/model/transfers/story_transfer.dart';
 import 'package:pictron/src/model/transfers/story_page_transfer.dart';
@@ -44,7 +43,7 @@ class StoryDao extends Dao {
   }
 
   Future<StoryPageTransfer> _getPagePost(int pageId) async {
-    
+
     final dynamic res = await post(_url,
         body: <String, String>{'id_pagina': pageId.toString()});
     if (res['error'].toString() == 'true') {

@@ -22,7 +22,6 @@ class _ChildListState extends State<ChildList> {
     _groups = _loadGroups(childrenGroups);
     _selectedList = false;
     _list = _children;
-    _controller = Con();
   }
 
   ListView _children;
@@ -31,8 +30,6 @@ class _ChildListState extends State<ChildList> {
   ListView _list;
 
   bool _selectedList = false;
-
-  Con _controller;
 
   void _goToCalendar(
       List<Activity> activities, String id, List<Activity> activitiesToShow) {
@@ -47,7 +44,7 @@ class _ChildListState extends State<ChildList> {
 
   Future<void> loadActivities(String id) async {
     try {
-      final List<Activity> activities = await _controller.loadCalendar(id);
+      final List<Activity> activities = await Con.con.loadCalendar(id);
       final List<Activity> activitiesToShow = <Activity>[];
       final DateTime now = DateTime.now();
       final List<Activity> pendingRemove = <Activity>[];

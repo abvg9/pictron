@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pictron/src/model/transfers/activity.dart';
-import 'package:pictron/src/controllers/main_controller.dart';
 import 'package:pictron/src/screens/game_screen.dart';
 import 'package:pictron/src/screens/story_screen.dart';
 import 'package:pictron/src/screens/sub_tasks.dart';
+import 'package:pictron/src/controllers/main_controller.dart';
 
 class Calendar extends StatefulWidget {
   const Calendar({Key key, this.activities, this.id, this.activitiesToShow})
@@ -20,11 +20,9 @@ class Calendar extends StatefulWidget {
 
 class _CalendarState extends State<Calendar> {
   _CalendarState({this.activities, this.id, this.activitiesToShow}) {
-    _controller = Con();
     _activitiesList = _loadCalendar();
   }
 
-  Con _controller;
   List<Activity> activities;
   List<Activity> activitiesToShow;
   String id;
@@ -88,7 +86,8 @@ class _CalendarState extends State<Calendar> {
     );
   }
 
-  void _goToStory() {
+  void _goToStory(String id) {
+    
     Navigator.push(
       context,
       MaterialPageRoute<dynamic>(
@@ -113,7 +112,7 @@ class _CalendarState extends State<Calendar> {
       itemBuilder: (BuildContext c, int index) => Column(
             children: <Widget>[
               Expanded(
-                flex: 2,
+                flex: 1,
                 child: GestureDetector(
                     onTap: () {
                       // If the task has sub-tasks we need to show it.
@@ -128,7 +127,7 @@ class _CalendarState extends State<Calendar> {
                                 activitiesToShow[index].getSubActivities());
                             break;
                           case Type.cuento:
-                            _goToStory();
+                            _goToStory(activitiesToShow[index].getId());
                             break;
                           case Type.juego:
                             _goToGame();
@@ -138,6 +137,7 @@ class _CalendarState extends State<Calendar> {
                     },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         Container(
                           height: (MediaQuery.of(context).size.height /
@@ -155,7 +155,8 @@ class _CalendarState extends State<Calendar> {
                             style:
                                 TextStyle(fontSize: 40, color: Colors.black)),
                       ],
-                    )),
+                    )
+                ),
               ),
             ],
           ));

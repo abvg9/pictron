@@ -1,7 +1,8 @@
 import 'package:pictron/src/model/transfers/game_transfer.dart';
 import 'package:pictron/src/model/transfers/game_page_transfer.dart';
+import 'package:pictron/src/model/dao/dao.dart';
 
-class GameDao {
+class GameDao extends Dao {
   Future<GameTransfer> getGame(int id) {
     final List<GamePageTransfer> pages = <GamePageTransfer>[];
     // ignore: cascade_invocations

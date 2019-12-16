@@ -1,6 +1,5 @@
 import 'package:mvc_pattern/mvc_pattern.dart' show ControllerMVC;
 import 'package:pictron/src/model/logic/game_logic.dart';
-
 import 'package:pictron/src/model/logic/story_logic.dart';
 import 'package:pictron/src/model/transfers/game_transfer.dart';
 import 'package:pictron/src/model/transfers/story_transfer.dart';
