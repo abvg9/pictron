@@ -4,6 +4,7 @@ import 'package:pictron/src/screens/game_screen.dart';
 import 'package:pictron/src/screens/story_screen.dart';
 import 'package:pictron/src/screens/sub_tasks.dart';
 import 'package:pictron/src/controllers/main_controller.dart';
+import 'package:pictron/src/model/transfers/story_transfer.dart';
 
 class Calendar extends StatefulWidget {
   const Calendar({Key key, this.activities, this.id, this.activitiesToShow})
@@ -86,9 +87,8 @@ class _CalendarState extends State<Calendar> {
     );
   }
 
-  void _goToStory(String id) {
-    Con.con.setStoryId(int.parse(id));
-    Navigator.push(
+  void _goToStory(String id)  {
+     Navigator.push(
       context,
       MaterialPageRoute<dynamic>(
           builder: (BuildContext context) =>
@@ -125,7 +125,7 @@ class _CalendarState extends State<Calendar> {
                             }
                             break;
                           case Type.cuento:
-                            _goToStory(activitiesToShow[index].getId());
+                            _goToStory(activitiesToShow[index].getLink());
                             break;
                           case Type.juego:
                             _goToGame(activitiesToShow[index].getId());

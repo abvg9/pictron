@@ -21,6 +21,7 @@ class Activity {
     urlImg = pathToImg + urlImg;
     type = Type.values.firstWhere(
         (Type t) => t.toString().split('.').last == json['tipo'].toString());
+    link = json['enlace'].toString();
   }
 
   Activity.subActivityFromJson(dynamic json, String pathToImg) {
@@ -45,12 +46,14 @@ class Activity {
   String urlImg;
   Type type;
   List<Activity> subActivities;
+  String link;
 
   String getId() => id;
   DateTime getStart() => start;
   DateTime getEnd() => end;
   String getTitle() => title;
   String getUrlImg() => urlImg;
+  String getLink() => link;
   Type getType() => type;
   List<Activity> getSubActivities() => subActivities;
 }

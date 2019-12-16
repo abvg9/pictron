@@ -13,6 +13,7 @@ class StoryScreen extends StatefulWidget {
 }
 
 class _StoryScreenState extends State<StoryScreen> {
+
   static const Color backColor = Color(0xffbcfaff);
   static const double _arrowHeight = 100;
   StoryTransfer _st;

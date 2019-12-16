@@ -3,6 +3,13 @@ import 'package:pictron/src/model/transfers/game_page_transfer.dart';
 import 'package:pictron/src/model/dao/dao.dart';
 
 class GameDao extends Dao {
+
+  GameDao() {
+    _urlGame = '$urlAPI/getNinosTutor.php';
+  }
+
+  String _urlGame;
+
   Future<GameTransfer> getGame(int id) {
     final List<GamePageTransfer> pages = <GamePageTransfer>[];
     // ignore: cascade_invocations
@@ -29,4 +36,23 @@ class GameDao extends Dao {
 
     return Future<GameTransfer>.value(GameTransfer(id: 1, pagesP: pages));
   }
+
+  /*
+  Future<GameTransfer> getGameSSS(String id) {
+
+    post(_urlGame, body: <String, String>{'Tutor': id})
+        .then((dynamic response) async {
+
+      if (response == null) {
+        throw EmptyResponse();
+      }
+
+      final List<dynamic> childrenList = response['kids'] as List<dynamic>;
+
+      return childrenList
+          .map<Child>((dynamic json) => Child.fromJson(json))
+          .toList();
+    }).catchError((Object e) => throw e);
+  }
+   */
 }
