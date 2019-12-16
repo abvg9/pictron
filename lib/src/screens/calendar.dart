@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pictron/src/model/transfers/activity.dart';
 import 'package:pictron/src/controllers/main_controller.dart';
+import 'package:pictron/src/screens/sub_tasks.dart';
 
 class Calendar extends StatefulWidget {
   const Calendar({Key key, this.activities, this.id, this.activitiesToShow})
@@ -28,7 +29,7 @@ class _CalendarState extends State<Calendar> {
   ListView _activitiesList;
 
   Future<bool> _updateList() async {
-    //final List<Activity> activities = await _controller.loadCalendar(id);
+    final List<Activity> activities = await _controller.loadCalendar(id);
     final DateTime now = DateTime.now();
     final List<Activity> pendingRemove = <Activity>[];
     const Duration tenMinutes = Duration(minutes: 10);
@@ -76,49 +77,63 @@ class _CalendarState extends State<Calendar> {
             ));
   }
 
+  void _goToSubTasks(List<Activity> activities) {
+    Navigator.push(
+      context,
+      MaterialPageRoute<dynamic>(
+          builder: (BuildContext context) =>
+              SubTasks(
+                  activities: activities
+              )),
+    );
+  }
+
   ListView _loadCalendar() => ListView.builder(
-        scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
-        itemCount: activitiesToShow.length,
-        itemBuilder: (BuildContext c, int index) => Column(
-              children: <Widget>[
-                Expanded(
-                  flex: 2,
-                  child: GestureDetector(
-                      onTap: () {
-                        // If the task has sub-tasks we need to show it.
-                        if (activitiesToShow[index]
-                            .getSubActivities()
-                            .isNotEmpty) {}
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Container(
-                            height: (MediaQuery.of(context)
-                                .size.height/activitiesToShow.length)-20,
-                            width: (MediaQuery.of(context)
-                                .size.width/activitiesToShow.length)-20,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                              image: NetworkImage(
-                                  activitiesToShow[index].getUrlImg()))),
-                          ),
-                          const SizedBox(height: 10),
-                          Text(activitiesToShow[index].getTitle(),
-                              style:
-                              TextStyle(fontSize: 40, color: Colors.black)),
-                        ],
-                      )
-                  ),
-                ),
-              ],
-            )),
-      );
+      scrollDirection: Axis.horizontal,
+      shrinkWrap: true,
+      itemCount: activitiesToShow.length,
+      itemBuilder: (BuildContext c, int index) => Column(
+            children: <Widget>[
+              Expanded(
+                flex: 2,
+                child: GestureDetector(
+                    onTap: () {
+                      // If the task has sub-tasks we need to show it.
+                      if (activitiesToShow[index]
+                          .getSubActivities()
+                          .isNotEmpty) {
+                        _goToSubTasks(
+                            activitiesToShow[index].getSubActivities());
+                      }
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          height: (MediaQuery.of(context).size.height /
+                                  activitiesToShow.length) -
+                              20,
+                          width: (MediaQuery.of(context).size.width /
+                                  activitiesToShow.length) -
+                              20,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: NetworkImage(
+                                      activitiesToShow[index].getUrlImg()))),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(activitiesToShow[index].getTitle(),
+                            style:
+                                TextStyle(fontSize: 40, color: Colors.black)),
+                      ],
+                    )),
+              ),
+            ],
+          ));
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      body: Center(
+          body: Center(
         child: Column(
           children: <Widget>[
             const SizedBox(height: 40),
