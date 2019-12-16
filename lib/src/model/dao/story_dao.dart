@@ -1,13 +1,16 @@
 import 'dart:async';
 import 'dart:convert' as convert;
 import 'package:http/http.dart';
-
+import 'package:pictron/src/model/dao/dao.dart';
 import 'package:pictron/src/model/transfers/story_transfer.dart';
 import 'package:pictron/src/model/transfers/story_page_transfer.dart';
 
-class StoryDao {
-  static const String _rootUrl = 'https://pictoteask2.000webhostapp.com';
-  static const String _url = '$_rootUrl/getPagesStory.php';
+class StoryDao extends Dao {
+
+  StoryDao() {
+    _url = '$urlAPI/getPagesStory.php';
+  }
+  String _url;
 
   Future<StoryTransfer> getStory(int id) async {
     final List<StoryPageTransfer> pages = <StoryPageTransfer>[];
@@ -52,6 +55,6 @@ class StoryDao {
     }
 
     final String path = res['page']['path'].toString();
-    return StoryPageTransfer(id: pageId, url: _rootUrl + path);
+    return StoryPageTransfer(id: pageId, url: urlAPI + path);
   }
 }

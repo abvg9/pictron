@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pictron/src/model/transfers/activity.dart';
 import 'package:pictron/src/controllers/main_controller.dart';
+import 'package:pictron/src/screens/game_screen.dart';
+import 'package:pictron/src/screens/story_screen.dart';
 import 'package:pictron/src/screens/sub_tasks.dart';
 
 class Calendar extends StatefulWidget {
@@ -29,7 +31,7 @@ class _CalendarState extends State<Calendar> {
   ListView _activitiesList;
 
   Future<bool> _updateList() async {
-    activities = await _controller.loadCalendar(id);
+    //activities = await _controller.loadCalendar(id);
     final DateTime now = DateTime.now();
     final List<Activity> pendingRemove = <Activity>[];
     const Duration tenMinutes = Duration(minutes: 10);
@@ -82,9 +84,25 @@ class _CalendarState extends State<Calendar> {
       context,
       MaterialPageRoute<dynamic>(
           builder: (BuildContext context) =>
-              SubTasks(
-                  activities: activities
-              )),
+              SubTasks(activities: activities)),
+    );
+  }
+
+  void _goToStory() {
+    Navigator.push(
+      context,
+      MaterialPageRoute<dynamic>(
+          builder: (BuildContext context) =>
+              StoryScreen()),
+    );
+  }
+
+  void _goToGame() {
+    Navigator.push(
+      context,
+      MaterialPageRoute<dynamic>(
+          builder: (BuildContext context) =>
+              GameScreen()),
     );
   }
 
@@ -102,8 +120,20 @@ class _CalendarState extends State<Calendar> {
                       if (activitiesToShow[index]
                           .getSubActivities()
                           .isNotEmpty) {
-                        _goToSubTasks(
-                            activitiesToShow[index].getSubActivities());
+
+                        switch(activitiesToShow[index].getType()) {
+
+                          case Type.tarea:
+                            _goToSubTasks(
+                                activitiesToShow[index].getSubActivities());
+                            break;
+                          case Type.cuento:
+                            _goToStory();
+                            break;
+                          case Type.juego:
+                            _goToGame();
+                            break;
+                        }
                       }
                     },
                     child: Column(
@@ -111,15 +141,14 @@ class _CalendarState extends State<Calendar> {
                       children: <Widget>[
                         Container(
                           height: (MediaQuery.of(context).size.height /
-                                  activitiesToShow.length) -
-                              20,
+                                  activitiesToShow.length) - 20,
                           width: (MediaQuery.of(context).size.width /
-                                  activitiesToShow.length) -
-                              20,
+                                  activitiesToShow.length) - 20,
                           decoration: BoxDecoration(
                               image: DecorationImage(
                                   image: NetworkImage(
-                                      activitiesToShow[index].getUrlImg()))),
+                                      activitiesToShow[index].getUrlImg()))
+                          ),
                         ),
                         const SizedBox(height: 10),
                         Text(activitiesToShow[index].getTitle(),
