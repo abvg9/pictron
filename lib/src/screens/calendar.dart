@@ -116,16 +116,13 @@ class _CalendarState extends State<Calendar> {
                 flex: 1,
                 child: GestureDetector(
                     onTap: () {
-                      // If the task has sub-tasks we need to show it.
-                      if (activitiesToShow[index]
-                          .getSubActivities()
-                          .isNotEmpty) {
-
                         switch(activitiesToShow[index].getType()) {
-
                           case Type.tarea:
-                            _goToSubTasks(
-                                activitiesToShow[index].getSubActivities());
+                            if (activitiesToShow[index].getSubActivities()
+                                .isNotEmpty) {
+                              _goToSubTasks(
+                                  activitiesToShow[index].getSubActivities());
+                            }
                             break;
                           case Type.cuento:
                             _goToStory(activitiesToShow[index].getId());
@@ -133,7 +130,7 @@ class _CalendarState extends State<Calendar> {
                           case Type.juego:
                             _goToGame(activitiesToShow[index].getId());
                             break;
-                        }
+
                       }
                     },
                     child: Column(
