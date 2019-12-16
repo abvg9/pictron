@@ -14,7 +14,7 @@ class GameLogic {
 
   int _gameId = 1;
 
-  set gameId(int value) {
+  void setGameId(int value) {
     _gameId = value;
   }
 

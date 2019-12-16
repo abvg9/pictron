@@ -87,7 +87,7 @@ class _CalendarState extends State<Calendar> {
   }
 
   void _goToStory(String id) {
-
+    Con.con.setStoryId(int.parse(id));
     Navigator.push(
       context,
       MaterialPageRoute<dynamic>(
@@ -96,7 +96,8 @@ class _CalendarState extends State<Calendar> {
     );
   }
 
-  void _goToGame() {
+  void _goToGame(String id) {
+    Con.con.setGameId(int.parse(id));
     Navigator.push(
       context,
       MaterialPageRoute<dynamic>(
@@ -130,7 +131,7 @@ class _CalendarState extends State<Calendar> {
                             _goToStory(activitiesToShow[index].getId());
                             break;
                           case Type.juego:
-                            _goToGame();
+                            _goToGame(activitiesToShow[index].getId());
                             break;
                         }
                       }

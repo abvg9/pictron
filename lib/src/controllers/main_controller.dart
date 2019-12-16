@@ -36,6 +36,14 @@ class Con extends ControllerMVC {
 
   Future<GameTransfer> getGame() => _gameLogic.loadGame();
 
+  void setStoryId(int id){
+    _storyLogic.setStoryId(id);
+  }
+
+  void setGameId(int id){
+    _gameLogic.setGameId(id);
+  }
+
   Future<void> signIn(String email, String pass) async {
     try {
       final String id = await _signInDao.login(email, pass);

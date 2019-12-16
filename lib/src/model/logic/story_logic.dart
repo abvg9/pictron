@@ -14,7 +14,7 @@ class StoryLogic {
 
   int _storyId = 3;
 
-  set storyId(int value) {
+  void setStoryId(int value) {
     _storyId = value;
   }
 
