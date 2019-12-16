@@ -39,7 +39,6 @@ class CalendarDao extends Dao {
         for (final Activity a in activities) {
           a.subActivities = await _getSubActivities(a.getId());
         }
-
         return activities;
       }).catchError((Object e) => throw e);
 
