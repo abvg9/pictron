@@ -237,7 +237,7 @@ class _ChildListState extends State<ChildList> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               _buttonsContainer,
-             ],
+            ],
           ),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
             _groupsContainer,

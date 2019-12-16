@@ -6,20 +6,19 @@ import 'package:pictron/src/model/transfers/story_transfer.dart';
 import 'package:pictron/src/model/transfers/story_page_transfer.dart';
 
 class StoryDao {
-
-  static const String _rootUrl = 'https://pictoteask.000webhostapp.com';
+  static const String _rootUrl = 'https://pictoteask2.000webhostapp.com';
   static const String _url = '$_rootUrl/getPagesStory.php';
 
   Future<StoryTransfer> getStory(int id) async {
     final List<StoryPageTransfer> pages = <StoryPageTransfer>[];
     final List<int> pIds = await _getStoryPost(id);
 
-    for(final int id in pIds){
+    for (final int id in pIds) {
       pages.add(await _getPagePost(id));
     }
 
-    return Future<StoryTransfer>
-        .value(StoryTransfer(id: id, name: '', list: pages));
+    return Future<StoryTransfer>.value(
+        StoryTransfer(id: id, name: '', list: pages));
   }
 
   Future<List<int>> _getStoryPost(int storyId) async {
@@ -27,15 +26,16 @@ class StoryDao {
         body: <String, String>{'id_cuento': storyId.toString()});
 
     final dynamic res = convert.jsonDecode(response.body);
-    if (res['error'].toString() == 'true'){
-            Exception(res['error_msg'].toString());
+    if (res['error'].toString() == 'true') {
+      Exception(res['error_msg'].toString());
     }
-    final List<String> pages = res['pages'].toString()
+    final List<String> pages = res['pages']
+        .toString()
         .replaceAll('[', '')
         .replaceAll(']', '')
         .split(', ');
     final List<int> ids = <int>[];
-    for (final String page in pages){
+    for (final String page in pages) {
       ids.add(int.parse(page));
     }
 
@@ -47,7 +47,7 @@ class StoryDao {
         body: <String, String>{'id_pagina': pageId.toString()});
 
     final dynamic res = convert.jsonDecode(response.body);
-    if (res['error'].toString() == 'true'){
+    if (res['error'].toString() == 'true') {
       Exception(res['error_msg'].toString());
     }
 

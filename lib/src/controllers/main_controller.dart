@@ -12,7 +12,6 @@ import 'package:pictron/src/model/transfers/activity.dart';
 import 'package:pictron/src/model/transfers/user.dart';
 
 class Con extends ControllerMVC {
-
   // Singelton
   factory Con() => _this ??= Con._();
 

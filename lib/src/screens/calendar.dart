@@ -28,7 +28,7 @@ class _CalendarState extends State<Calendar> {
   ListView _activitiesList;
 
   Future<bool> _updateList() async {
-    final List<Activity> activities = await _controller.loadCalendar(id);
+    //final List<Activity> activities = await _controller.loadCalendar(id);
     final DateTime now = DateTime.now();
     final List<Activity> pendingRemove = <Activity>[];
     const Duration tenMinutes = Duration(minutes: 10);
@@ -47,6 +47,12 @@ class _CalendarState extends State<Calendar> {
     for (int i = 0; (i < 3) && (i < activities.length); i++) {
       activitiesToShow.add(activities[i]);
     }
+
+    setState(() {
+      if (activitiesToShow.isNotEmpty) {
+        _activitiesList = _loadCalendar();
+      }
+    });
 
     return activitiesToShow.isEmpty;
   }
@@ -75,25 +81,35 @@ class _CalendarState extends State<Calendar> {
         shrinkWrap: true,
         itemCount: activitiesToShow.length,
         itemBuilder: (BuildContext c, int index) => Padding(
-            padding: const EdgeInsets.all(30),
+            padding: const EdgeInsets.all(40),
             child: Column(
               children: <Widget>[
                 Expanded(
-                  flex: 60,
+                  flex: 2,
                   child: GestureDetector(
-                    onTap: () {
-                      // If the task has sub-tasks we need to show it.
-                      if (activitiesToShow[index]
-                          .getSubActivities()
-                          .isNotEmpty) {}
-                    },
-                    child: Container(
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image:
-                              NetworkImage(activitiesToShow[index].getUrlImg()),
-                        )),
-                        child: Text(activitiesToShow[index].getTitle())),
+                      onTap: () {
+                        // If the task has sub-tasks we need to show it.
+                        if (activitiesToShow[index]
+                            .getSubActivities()
+                            .isNotEmpty) {}
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            height: 300,
+                            width: 300,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                              image: NetworkImage(
+                                  activitiesToShow[index].getUrlImg()))),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(activitiesToShow[index].getTitle(),
+                              style:
+                              TextStyle(fontSize: 40, color: Colors.black)),
+                        ],
+                      )
                   ),
                 ),
               ],
@@ -103,11 +119,11 @@ class _CalendarState extends State<Calendar> {
   @override
   Widget build(BuildContext context) => Scaffold(
       body: Center(
-        child: Row(
+        child: Column(
           children: <Widget>[
-            const SizedBox(height: 80),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+            const SizedBox(height: 40),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Ink(
                   decoration: const ShapeDecoration(
@@ -130,11 +146,9 @@ class _CalendarState extends State<Calendar> {
                 ),
               ],
             ),
-            Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  _activitiesList,
-                ]),
+            Flexible(
+              child: _activitiesList,
+            ),
           ],
         ),
       ));

@@ -1,6 +1,6 @@
 class GamePageTransfer {
-  GamePageTransfer({int id, List<String> urlsP, List<String> namesP, int solP}):
-        pageId = id,
+  GamePageTransfer({int id, List<String> urlsP, List<String> namesP, int solP})
+      : pageId = id,
         urls = urlsP,
         names = namesP,
         sol = solP;

@@ -19,16 +19,16 @@ class Dao {
           {Map<String, String> headers,
           Map<String, String> body,
           Encoding encoding}) =>
-      http.post(url, body: body, headers: headers, encoding: encoding)
+      http
+          .post(url, body: body, headers: headers, encoding: encoding)
           .then((http.Response response) {
+        final String res = response.body;
+        final int statusCode = response.statusCode;
 
-            final String res = response.body;
-            final int statusCode = response.statusCode;
+        if (statusCode < 200 || statusCode > 400 || json == null) {
+          throw EmptyResponse();
+        }
 
-            if (statusCode < 200 || statusCode > 400 || json == null) {
-              throw EmptyResponse();
-            }
-
-            return decoder.convert(res);
+        return decoder.convert(res);
       });
 }

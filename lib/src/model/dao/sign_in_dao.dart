@@ -13,8 +13,7 @@ class SignInDao extends Dao {
   String _url;
 
   Future<String> login(String email, String password) =>
-      post(_url, body: <String, String>
-      {'email': email, 'password': password})
+      post(_url, body: <String, String>{'email': email, 'password': password})
           .then((dynamic response) async {
         if (response == null) {
           throw EmptyResponse();
@@ -25,7 +24,7 @@ class SignInDao extends Dao {
         }
 
         return response['tutor']['id_tutor'].toString();
-      }).catchError((Object e) =>  throw e);
+      }).catchError((Object e) => throw e);
 
   void loginAuth(String token) {
     // TO-DO

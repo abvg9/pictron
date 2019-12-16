@@ -2,7 +2,6 @@ import 'package:pictron/src/model/dao/game_dao.dart';
 import 'package:pictron/src/model/transfers/game_transfer.dart';
 
 class GameLogic {
-
   // Singelton
   factory GameLogic() => _this ??= GameLogic._();
 

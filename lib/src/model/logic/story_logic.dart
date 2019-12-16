@@ -2,7 +2,6 @@ import 'package:pictron/src/model/transfers/story_transfer.dart';
 import 'package:pictron/src/model/dao/story_dao.dart';
 
 class StoryLogic {
-
   // Singelton
   factory StoryLogic() => _this ??= StoryLogic._();
 

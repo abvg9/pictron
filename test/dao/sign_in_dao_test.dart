@@ -15,10 +15,10 @@ void isAValidPetition() {
     final SignInDao signInDao = SignInDao();
 
     const String invalidEmail = 'fakeEmail@hotmail.com';
-    const String validEmail = 'aa@gmail.com';
+    const String validEmail = 'mail@mail.com';
 
     const String invalidPassword = 'ICWIENER';
-    const String validPassword = 'Alberto123';
+    const String validPassword = 'Patata01';
 
     signInDao.login(validEmail, validPassword).then((String ret) {
       expect(ret, '7');
