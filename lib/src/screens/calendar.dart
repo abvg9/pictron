@@ -80,9 +80,7 @@ class _CalendarState extends State<Calendar> {
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
         itemCount: activitiesToShow.length,
-        itemBuilder: (BuildContext c, int index) => Padding(
-            padding: const EdgeInsets.all(40),
-            child: Column(
+        itemBuilder: (BuildContext c, int index) => Column(
               children: <Widget>[
                 Expanded(
                   flex: 2,
@@ -97,8 +95,10 @@ class _CalendarState extends State<Calendar> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Container(
-                            height: 300,
-                            width: 300,
+                            height: (MediaQuery.of(context)
+                                .size.height/activitiesToShow.length)-20,
+                            width: (MediaQuery.of(context)
+                                .size.width/activitiesToShow.length)-20,
                             decoration: BoxDecoration(
                                 image: DecorationImage(
                               image: NetworkImage(
