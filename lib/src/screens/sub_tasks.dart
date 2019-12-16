@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:pictron/src/model/transfers/activity.dart';
 import 'package:pictron/src/widget/arrow_button.dart';
 import 'package:pictron/src/widget/visibility.dart';
@@ -48,50 +47,53 @@ class _SubTasksState extends State<SubTasks> {
 
   /// This function is used to manage a click on any arrow button
   void onClickArrowB({bool isLeft}) {
-    int incr = 0;
+
+    int increment = 0;
 
     if (isLeft) {
-      if (_index == 0) {
+      if (_index <= 0) {
         return;
       }
-      incr = -3;
+      increment = -3;
     } else {
-      if (_index == activities.length - 1) {
+      if (_index >= activities.length - 1) {
         return;
       }
-      incr = 3;
+      increment = 3;
     }
 
-    _index += incr;
+    _index += increment;
 
     setState(() {
 
       int count = 0;
+      activitiesToShow.clear();
       for(int i = _index; (count < 3) && (i < activities.length); i++){
-        activitiesToShow[i] = activities[i];
+        activitiesToShow.add(activities[i]);
         count++;
       }
 
       _leftArrowVi =
           _index == 0 ? VisibilityFlag.invisible : VisibilityFlag.visible;
 
-      _rightArrowVi = _index == activities.length - 1
+      _rightArrowVi = _index+3 >= activities.length - 1
           ? VisibilityFlag.invisible
           : VisibilityFlag.visible;
 
-      _firstSecretOnTap = _index == activities.length - 1
+      _firstSecretOnTap = _index+3 >= activities.length - 1
           ? () {
               password.tapSecretCode(id: 1);
             }
           : null;
 
-      _secondSecretOnTap = _index == activities.length - 1
+      _secondSecretOnTap = _index+3 >= activities.length - 1
           ? () {
               password.tapSecretCode(id: 2);
             }
           : null;
 
       password.resetCode();
+      _activitiesList = _loadCalendar();
     });
   }
 
@@ -108,20 +110,10 @@ class _SubTasksState extends State<SubTasks> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    /*
-                    ArrowButton(
-                        height: 20,
-                        visibility: _leftArrowVi,
-                        event: () {
-                          onClickArrowB(isLeft: true);
-                        }),
-                     */
                     GestureDetector(
                         onTap: () {
-                          // If the task has sub-tasks we need to show it.
-                            if (activitiesToShow[index].getSubActivities()
-                                .isNotEmpty) {}
-                            },
+                          // Show image.
+                        },
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -143,15 +135,6 @@ class _SubTasksState extends State<SubTasks> {
                                     fontSize: 40, color: Colors.black)),
                           ],
                         )),
-                    /*
-                    ArrowButton(
-                        left: false,
-                        height: 20,
-                        visibility: _rightArrowVi,
-                        event: () {
-                          onClickArrowB(isLeft: false);
-                        }),
-                     */
                     ],
                   ),
                 ),
@@ -161,34 +144,58 @@ class _SubTasksState extends State<SubTasks> {
   @override
   Widget build(BuildContext context) => Scaffold(
       body: Center(
-        child: Column(
+        child: Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             /*
-            Flexible(
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Column(
+            Row(
+              children: <Widget>[
+                Flexible(
+                    child: Row(
                       mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        SecretButton(event: _firstSecretOnTap)
-                      ],
-                    ),
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        SecretButton(event: _secondSecretOnTap)
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            SecretButton(event: _firstSecretOnTap)
+                          ],
+                        ),
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            SecretButton(event: _secondSecretOnTap)
+                          ],
+                        )
                       ],
                     )
-                  ],
-                )
+                ),
+              ],
             ),
-
              */
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                ArrowButton(
+                    visibility: _leftArrowVi,
+                    event: () {
+                      onClickArrowB(isLeft: true);
+                    }),
+              ],
+            ),
             Flexible(
               child: _activitiesList,
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                ArrowButton(
+                    left: false,
+                    visibility: _rightArrowVi,
+                    event: () {
+                      onClickArrowB(isLeft: false);
+                    }),
+              ],
             ),
           ],
         ),
