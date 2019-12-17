@@ -69,21 +69,28 @@ class _GameScreenState extends State<GameScreen> {
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
-                          InkWell(
-                              onTap: () {
-                                _onClickImage(pos: 0, context: context);
-                              },
-                              child: Image.network(_currentPage.urls[0])),
-                          InkWell(
-                              onTap: () {
-                                _onClickImage(pos: 1, context: context);
-                              },
-                              child: Image.network(_currentPage.urls[1])),
-                          InkWell(
-                              onTap: () {
-                                _onClickImage(pos: 2, context: context);
-                              },
-                              child: Image.network(_currentPage.urls[2]))
+                          Expanded(child:
+                            InkWell(
+                                onTap: () {
+                                  _onClickImage(pos: 0, context: context);
+                                },
+                                child: Image.network(_currentPage.urls[0]),
+                            ),
+                          ),
+                          Expanded(child:
+                            InkWell(
+                                onTap: () {
+                                  _onClickImage(pos: 1, context: context);
+                                },
+                                child: Image.network(_currentPage.urls[1]))
+                          ),
+                          Expanded(child:
+                            InkWell(
+                                onTap: () {
+                                  _onClickImage(pos: 2, context: context);
+                                },
+                                child: Image.network(_currentPage.urls[2]))
+                          )
                         ])),
                 Expanded(
                     flex: 2,
