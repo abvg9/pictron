@@ -88,6 +88,7 @@ class _CalendarState extends State<Calendar> {
   }
 
   void _goToStory(String id)  {
+    Con.con.setStoryId(int.parse(id));
      Navigator.push(
       context,
       MaterialPageRoute<dynamic>(

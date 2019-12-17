@@ -65,7 +65,7 @@ class _StoryScreenState extends State<StoryScreen> {
                         height: _arrowHeight,
                         visibility: _leftArrowVi,
                         event: () {
-                          onClickArrowB(isLeft: true);
+                          onClickArrowB(isLeft: true, context: context);
                         }),
                     Expanded(flex: 7, child: Image.network(_imageUrl)),
                     ArrowButton(
@@ -73,7 +73,7 @@ class _StoryScreenState extends State<StoryScreen> {
                         height: _arrowHeight,
                         visibility: _rightArrowVi,
                         event: () {
-                          onClickArrowB(isLeft: false);
+                          onClickArrowB(isLeft: false, context: context);
                         }),
                   ],
                 ),
@@ -92,7 +92,7 @@ class _StoryScreenState extends State<StoryScreen> {
   }
 
   /// This function is used to manage a click on any arrow button
-  void onClickArrowB({bool isLeft}) {
+  void onClickArrowB({bool isLeft, BuildContext context}) {
     int incr = 0;
 
     if (isLeft) {
@@ -121,13 +121,13 @@ class _StoryScreenState extends State<StoryScreen> {
 
       _firstSecretOnTap = _st.currentP == _st.pages.length - 1
           ? () {
-              password.tapSecretCode(id: 1);
+              password.tapSecretCode(id: 1, context: context);
             }
           : null;
 
       _secondSecretOnTap = _st.currentP == _st.pages.length - 1
           ? () {
-              password.tapSecretCode(id: 2);
+              password.tapSecretCode(id: 2, context: context);
             }
           : null;
 

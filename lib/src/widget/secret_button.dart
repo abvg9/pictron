@@ -33,7 +33,7 @@ class PasswordTwoButtons {
   /// Secret code:
   ///     1: 2 taps on the first(top/left) secret button
   ///     2: 1 taps on the second(top/right) secret button
-  void tapSecretCode({int id}) {
+  void tapSecretCode({int id, BuildContext context}) {
     if (id == 1) {
       if (_firstButtonTaps < 2) {
         _firstButtonTaps++;
@@ -52,7 +52,8 @@ class PasswordTwoButtons {
 
     /// Code accepted
     if (_firstButtonTaps == 2 && _secondButtonTaps == 1) {
-      SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+      Navigator.pop(context);
+      //SystemChannels.platform.invokeMethod('SystemNavigator.pop');
     }
   }
 }

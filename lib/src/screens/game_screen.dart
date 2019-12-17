@@ -71,17 +71,17 @@ class _GameScreenState extends State<GameScreen> {
                         children: <Widget>[
                           InkWell(
                               onTap: () {
-                                _onClickImage(pos: 0);
+                                _onClickImage(pos: 0, context: context);
                               },
                               child: Image.network(_currentPage.urls[0])),
                           InkWell(
                               onTap: () {
-                                _onClickImage(pos: 1);
+                                _onClickImage(pos: 1, context: context);
                               },
                               child: Image.network(_currentPage.urls[1])),
                           InkWell(
                               onTap: () {
-                                _onClickImage(pos: 2);
+                                _onClickImage(pos: 2, context: context);
                               },
                               child: Image.network(_currentPage.urls[2]))
                         ])),
@@ -108,7 +108,7 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   /// Used to manage a click on a image
-  void _onClickImage({int pos}) {
+  void _onClickImage({int pos, BuildContext context}) {
     if (pos >= _currentPage.names.length || pos != _currentPage.sol) {
       return;
     }
@@ -128,10 +128,10 @@ class _GameScreenState extends State<GameScreen> {
         });
       } else if (_game.currentP == _game.pages.length - 1) {
         _firstSecretOnTap = () {
-          _password.tapSecretCode(id: 1);
+          _password.tapSecretCode(id: 1, context: context);
         };
         _secondSecretOnTap = () {
-          _password.tapSecretCode(id: 2);
+          _password.tapSecretCode(id: 2, context: context);
         };
         _password.resetCode();
       }

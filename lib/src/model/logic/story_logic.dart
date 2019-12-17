@@ -12,7 +12,7 @@ class StoryLogic {
   // For easy access in the application
   static StoryLogic get storyL => _this;
 
-  int _storyId = 3;
+  int _storyId = -1;
 
   void setStoryId(int value) {
     _storyId = value;
