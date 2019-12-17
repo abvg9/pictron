@@ -18,12 +18,12 @@ class _SubTasksState extends State<SubTasks> {
   _SubTasksState({this.activities}) {
 
     _index = 0;
-    _leftArrowVi = VisibilityFlag.visible;
+    _leftArrowVi = VisibilityFlag.invisible;
 
     if(activities.length > 3){
       _rightArrowVi = VisibilityFlag.visible;
     } else {
-      _rightArrowVi = VisibilityFlag.visible;
+      _rightArrowVi = VisibilityFlag.invisible;
     }
 
     activitiesToShow = <Activity> [];
