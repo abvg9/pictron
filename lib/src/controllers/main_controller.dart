@@ -1,16 +1,16 @@
 import 'package:mvc_pattern/mvc_pattern.dart' show ControllerMVC;
 import 'package:pictron/src/model/logic/game_logic.dart';
-
 import 'package:pictron/src/model/logic/story_logic.dart';
 import 'package:pictron/src/model/transfers/game_transfer.dart';
 import 'package:pictron/src/model/transfers/story_transfer.dart';
 import 'package:pictron/src/model/auth/sign_client.dart';
+import 'package:pictron/src/model/dao/calendar_dao.dart';
 import 'package:pictron/src/model/dao/children_dao.dart';
 import 'package:pictron/src/model/dao/sign_in_dao.dart';
+import 'package:pictron/src/model/transfers/activity.dart';
 import 'package:pictron/src/model/transfers/user.dart';
 
 class Con extends ControllerMVC {
-
   // Singelton
   factory Con() => _this ??= Con._();
 
@@ -30,10 +30,19 @@ class Con extends ControllerMVC {
 
   final SignInDao _signInDao = SignInDao();
   final ChildrenDao _childrenDao = ChildrenDao();
+  final CalendarDao _calendarDao = CalendarDao();
 
   Future<StoryTransfer> getStory() => _storyLogic.loadStory();
 
   Future<GameTransfer> getGame() => _gameLogic.loadGame();
+
+  void setStoryId(int id){
+    _storyLogic.setStoryId(id);
+  }
+
+  void setGameId(int id){
+    _gameLogic.setGameId(id);
+  }
 
   Future<void> signIn(String email, String pass) async {
     try {
@@ -57,7 +66,7 @@ class Con extends ControllerMVC {
 
       await signInClient.handleSignIn();
 
-      //TO-DO
+      //TODO
 
     } catch (e) {
       rethrow;
@@ -67,6 +76,9 @@ class Con extends ControllerMVC {
   Future<void> signOutAuth() async {
     await signInClient.handleSignOut();
   }
+
+  Future<List<Activity>> loadCalendar(String id) async =>
+      _calendarDao.getActivities(id);
 
   User getUser() => _user;
 }

@@ -8,7 +8,7 @@ class EmptyResponse implements Exception {
 
 class Dao {
   Dao() {
-    urlAPI = 'https://pictoteask.000webhostapp.com';
+    urlAPI = 'https://pictoteask2.000webhostapp.com';
     decoder = const JsonDecoder();
   }
 
@@ -22,17 +22,6 @@ class Dao {
       http
           .post(url, body: body, headers: headers, encoding: encoding)
           .then((http.Response response) {
-        final String res = response.body;
-        final int statusCode = response.statusCode;
-
-        if (statusCode < 200 || statusCode > 400 || json == null) {
-          throw EmptyResponse();
-        }
-        return decoder.convert(res);
-      });
-
-  Future<dynamic> get(String url) =>
-      http.get(url).then((http.Response response) {
         final String res = response.body;
         final int statusCode = response.statusCode;
 

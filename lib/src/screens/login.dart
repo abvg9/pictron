@@ -29,7 +29,6 @@ class _LoginPageState extends State<LoginPage> {
 
     _stringValidator = StringValidator();
 
-    _controller = Con();
     _facebookSignClient = FacebookSignClient();
     _googleSignClient = GoogleSignClient();
   }
@@ -42,18 +41,16 @@ class _LoginPageState extends State<LoginPage> {
   String _emailErrorMessage;
   String _passwordErrorMessage;
 
-  Con _controller;
-
   ProgressDialog _pr;
 
   FacebookSignClient _facebookSignClient;
   GoogleSignClient _googleSignClient;
 
   Future<void> _checkAuthLogin(SignClient signClient) async {
-    await _controller.signInAuth(signClient);
-    if (await _controller.signInClient.isConnected().then((bool con) => con)) {
+    await Con.con.signInAuth(signClient);
+    if (await Con.con.signInClient.isConnected().then((bool con) => con)) {
       setState(() {
-        // TO-DO
+        // TODO
         //_goToChildViewList(children, groups);
       });
     }
@@ -80,11 +77,11 @@ class _LoginPageState extends State<LoginPage> {
       try {
         // Send a petition to the API.
         // API will return a list of children's and a list of groups.
-        await _controller.signIn(user, pass);
+        await Con.con.signIn(user, pass);
         setState(() {
           _pr.hide();
-          _goToChildViewList(_controller.getUser().getChildren(),
-              _controller.getUser().getChildrenGroups());
+          _goToChildViewList(Con.con.getUser().getChildren(),
+              Con.con.getUser().getChildrenGroups());
         });
       } catch (e) {
         setState(() {

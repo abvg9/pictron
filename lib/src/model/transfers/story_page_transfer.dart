@@ -1,6 +1,6 @@
 class StoryPageTransfer {
-  StoryPageTransfer({int id, String url}):
-        imageId = id,
+  StoryPageTransfer({int id, String url})
+      : imageId = id,
         imageUrl = url;
 
   int imageId;

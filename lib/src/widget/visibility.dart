@@ -10,7 +10,6 @@ enum VisibilityFlag {
 }
 
 class Visibility extends StatelessWidget {
-
   Visibility({
     @required this.child,
     @required this.visibility,
@@ -24,8 +23,7 @@ class Visibility extends StatelessWidget {
   Widget build(BuildContext context) {
     if (visibility == VisibilityFlag.visible) {
       return child;
-    }
-    else if (visibility == VisibilityFlag.invisible) {
+    } else if (visibility == VisibilityFlag.invisible) {
       return IgnorePointer(
         ignoring: true,
         child: Opacity(
@@ -33,14 +31,12 @@ class Visibility extends StatelessWidget {
           child: child,
         ),
       );
-    }
-    else if (visibility == VisibilityFlag.offscreen) {
+    } else if (visibility == VisibilityFlag.offscreen) {
       return Offstage(
         offstage: true,
         child: child,
       );
-    }
-    else {
+    } else {
       // If gone, we replace child with a custom widget (defaulting to a
       // [Container] with no defined size).
       return removedChild;

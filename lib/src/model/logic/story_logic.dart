@@ -2,7 +2,6 @@ import 'package:pictron/src/model/transfers/story_transfer.dart';
 import 'package:pictron/src/model/dao/story_dao.dart';
 
 class StoryLogic {
-
   // Singelton
   factory StoryLogic() => _this ??= StoryLogic._();
 
@@ -13,9 +12,9 @@ class StoryLogic {
   // For easy access in the application
   static StoryLogic get storyL => _this;
 
-  int _storyId = 3;
+  int _storyId = -1;
 
-  set storyId(int value) {
+  void setStoryId(int value) {
     _storyId = value;
   }
 

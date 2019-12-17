@@ -1,6 +1,13 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pictron/src/model/dao/sign_in_dao.dart';
 
+void main() {
+  group('Sign in dao tests', () {
+    isAValidPetition();
+    isAInvalidPetition();
+  });
+}
+
 void isAValidPetition() {
   test(
       'Sign in dao must detects that '
@@ -8,10 +15,10 @@ void isAValidPetition() {
     final SignInDao signInDao = SignInDao();
 
     const String invalidEmail = 'fakeEmail@hotmail.com';
-    const String validEmail = 'aa@gmail.com';
+    const String validEmail = 'mail@mail.com';
 
     const String invalidPassword = 'ICWIENER';
-    const String validPassword = 'Alberto123';
+    const String validPassword = 'Patata01';
 
     signInDao.login(validEmail, validPassword).then((String ret) {
       expect(ret, '7');

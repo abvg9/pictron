@@ -2,7 +2,6 @@ import 'package:pictron/src/model/dao/game_dao.dart';
 import 'package:pictron/src/model/transfers/game_transfer.dart';
 
 class GameLogic {
-
   // Singelton
   factory GameLogic() => _this ??= GameLogic._();
 
@@ -15,7 +14,7 @@ class GameLogic {
 
   int _gameId = 1;
 
-  set gameId(int value) {
+  void setGameId(int value) {
     _gameId = value;
   }
 
