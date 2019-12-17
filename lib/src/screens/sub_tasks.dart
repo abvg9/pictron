@@ -41,8 +41,6 @@ class _SubTasksState extends State<SubTasks> {
   ListView _activitiesList;
   VisibilityFlag _leftArrowVi;
   VisibilityFlag _rightArrowVi;
-  GestureTapCallback _firstSecretOnTap;
-  GestureTapCallback _secondSecretOnTap;
   PasswordTwoButtons password = PasswordTwoButtons();
   int _index;
 
@@ -80,9 +78,6 @@ class _SubTasksState extends State<SubTasks> {
       _rightArrowVi = _index+3 >= activities.length - 1
           ? VisibilityFlag.invisible
           : VisibilityFlag.visible;
-
-      password.tapSecretCode(id: 1);
-      password.tapSecretCode(id: 2);
 
       password.resetCode();
 
@@ -126,57 +121,68 @@ class _SubTasksState extends State<SubTasks> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      body: Center(
-        child: ListView(
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    SecretButton(event: _firstSecretOnTap, flex: 0)
-                  ],
-                ),
-                Column(
-                  children: <Widget>[
-                    SecretButton(event: _secondSecretOnTap, flex: 0)
-                  ],
-                )
-              ],
-            ),
-            SizedBox(height: MediaQuery.of(context).size.width/4),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    ArrowButton(
-                        visibility: _leftArrowVi,
-                        flex: 0,
-                        event: () {
-                          onClickArrowB(isLeft: true);
-                        }),
-                  ],
-                ),
-                Container(
-                  height: MediaQuery.of(context).size.height - 620,
-                  width: MediaQuery.of(context).size.width - 220,
-                  child: _activitiesList,
-                ),
-                Column(
-                  children: <Widget>[
-                    ArrowButton(
-                        left: false,
-                        flex: 0,
-                        visibility: _rightArrowVi,
-                        event: () {
-                          onClickArrowB(isLeft: false);
-                        }),
-                  ],
-                ),
-              ],
-            )
-          ],
-        ),
-      ));
-}
+        body: Center(
+          child: ListView(
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Column(
+                    children: <Widget>[
+                      SecretButton(event: (){password.tapSecretCode(id: 1,
+                          context: context);}, flex: 0)
+                    ],
+                  ),
+                  Column(
+                    children: <Widget>[
+                      SecretButton(event: (){password.tapSecretCode(id: 2,
+                          context: context);}, flex: 0)
+                    ],
+                  )
+                ],
+              ),
+              SizedBox(height: MediaQuery
+                  .of(context)
+                  .size
+                  .width / 4),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Column(
+                    children: <Widget>[
+                      ArrowButton(
+                          visibility: _leftArrowVi,
+                          flex: 0,
+                          event: () {
+                            onClickArrowB(isLeft: true);
+                          }),
+                    ],
+                  ),
+                  Container(
+                    height: MediaQuery
+                        .of(context)
+                        .size
+                        .height - 620,
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width - 220,
+                    child: _activitiesList,
+                  ),
+                  Column(
+                    children: <Widget>[
+                      ArrowButton(
+                          left: false,
+                          flex: 0,
+                          visibility: _rightArrowVi,
+                          event: () {
+                            onClickArrowB(isLeft: false);
+                          }),
+                    ],
+                  ),
+                ],
+              )
+            ],
+          ),
+        ));
+  }
