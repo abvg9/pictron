@@ -14,15 +14,16 @@ class SubTasks extends StatefulWidget {
 }
 
 class _SubTasksState extends State<SubTasks> {
+
   _SubTasksState({this.activities}) {
 
     _index = 0;
-    _leftArrowVi = VisibilityFlag.invisible;
+    _leftArrowVi = VisibilityFlag.visible;
 
     if(activities.length > 3){
       _rightArrowVi = VisibilityFlag.visible;
     } else {
-      _rightArrowVi = VisibilityFlag.invisible;
+      _rightArrowVi = VisibilityFlag.visible;
     }
 
     activitiesToShow = <Activity> [];
@@ -74,25 +75,17 @@ class _SubTasksState extends State<SubTasks> {
       }
 
       _leftArrowVi =
-          _index == 0 ? VisibilityFlag.invisible : VisibilityFlag.visible;
+      _index == 0 ? VisibilityFlag.invisible : VisibilityFlag.visible;
 
       _rightArrowVi = _index+3 >= activities.length - 1
           ? VisibilityFlag.invisible
           : VisibilityFlag.visible;
 
-      _firstSecretOnTap = _index+3 >= activities.length - 1
-          ? () {
-              password.tapSecretCode(id: 1);
-            }
-          : null;
-
-      _secondSecretOnTap = _index+3 >= activities.length - 1
-          ? () {
-              password.tapSecretCode(id: 2);
-            }
-          : null;
+      password.tapSecretCode(id: 1);
+      password.tapSecretCode(id: 2);
 
       password.resetCode();
+
       _activitiesList = _loadCalendar();
     });
   }
@@ -101,102 +94,88 @@ class _SubTasksState extends State<SubTasks> {
       scrollDirection: Axis.horizontal,
       shrinkWrap: true,
       itemCount: activitiesToShow.length,
-      itemBuilder: (BuildContext c, int index) =>
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Flexible(
-                flex: 10,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    GestureDetector(
-                        onTap: () {
-                          // Show image.
-                        },
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Container(
-                              height: (MediaQuery.of(context).size.height /
-                                        activitiesToShow.length) - 50,
-                              width: (MediaQuery.of(context).size.width /
-                                        activitiesToShow.length) - 50,
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: NetworkImage(
-                                          activitiesToShow[index]
-                                              .getUrlImg()))),
-                            ),
-                            const SizedBox(height: 10),
-                            Text(activitiesToShow[index].getTitle(),
-                                style: TextStyle(
-                                    fontSize: 40, color: Colors.black)),
-                          ],
-                        )),
-                    ],
+      itemBuilder: (BuildContext c, int index) => Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          GestureDetector(
+              onTap: () {
+                // Show image.
+              },
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    height: (MediaQuery.of(context).size.height /
+                        activitiesToShow.length)-70,
+                    width: (MediaQuery.of(context).size.width /
+                        activitiesToShow.length) - 100,
+                    decoration: BoxDecoration(image: DecorationImage(
+                        image: NetworkImage(activitiesToShow[index]
+                            .getUrlImg()))),
                   ),
-                ),
-              ],
-            ));
+                  const SizedBox(height: 10),
+                  Text(activitiesToShow[index].getTitle(),
+                      style: TextStyle(
+                          fontSize: 30, color: Colors.black)),
+                ],
+              )),
+        ],
+      ),
+  );
 
   @override
   Widget build(BuildContext context) => Scaffold(
       body: Center(
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
+        child: ListView(
           children: <Widget>[
-            /*
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Flexible(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            SecretButton(event: _firstSecretOnTap)
-                          ],
-                        ),
-                        Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            SecretButton(event: _secondSecretOnTap)
-                          ],
-                        )
-                      ],
-                    )
+                Column(
+                  children: <Widget>[
+                    SecretButton(event: _firstSecretOnTap, flex: 0)
+                  ],
+                ),
+                Column(
+                  children: <Widget>[
+                    SecretButton(event: _secondSecretOnTap, flex: 0)
+                  ],
+                )
+              ],
+            ),
+            SizedBox(height: MediaQuery.of(context).size.width/4),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Column(
+                  children: <Widget>[
+                    ArrowButton(
+                        visibility: _leftArrowVi,
+                        flex: 0,
+                        event: () {
+                          onClickArrowB(isLeft: true);
+                        }),
+                  ],
+                ),
+                Container(
+                  height: MediaQuery.of(context).size.height - 620,
+                  width: MediaQuery.of(context).size.width - 220,
+                  child: _activitiesList,
+                ),
+                Column(
+                  children: <Widget>[
+                    ArrowButton(
+                        left: false,
+                        flex: 0,
+                        visibility: _rightArrowVi,
+                        event: () {
+                          onClickArrowB(isLeft: false);
+                        }),
+                  ],
                 ),
               ],
-            ),
-             */
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                ArrowButton(
-                    visibility: _leftArrowVi,
-                    event: () {
-                      onClickArrowB(isLeft: true);
-                    }),
-              ],
-            ),
-            Flexible(
-              child: _activitiesList,
-            ),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                ArrowButton(
-                    left: false,
-                    visibility: _rightArrowVi,
-                    event: () {
-                      onClickArrowB(isLeft: false);
-                    }),
-              ],
-            ),
+            )
           ],
         ),
       ));
